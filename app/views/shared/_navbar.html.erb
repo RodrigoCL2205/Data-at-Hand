@@ -1,7 +1,7 @@
 <header class="br-header" id="header" data-sticky="data-sticky">
         <div class="container-fluid">
           <div class="header-top">
-            <div class="header-logo"><%= image_tag("hand-logo.jpg") %><span class="br-divider vertical mx-half mx-sm-1"></span>
+            <div class="header-logo"><%= image_tag("data-hand-logo.png") %><span class="br-divider vertical mx-half mx-sm-1"></span>
               <div class="header-sign">Assinatura</div>
             </div>
             <div class="header-actions">
@@ -49,13 +49,13 @@
                   </button>
                 </div>
                 <div class="header-avatar d-none">
-                  <div class="avatar dropdown"><span class="br-avatar" title="Fulana da Silva"><span class="image"><img src="https://picsum.photos/id/823/400" alt="Avatar"/></span></span>
+                  <div class="avatar dropdown"><span class="br-avatar" title="Fulana da Silva"><span class="image"><i class="fas fa-user" aria-hidden="true"></i></span></span>
                     <button class="br-button circle small" type="button" aria-label="Abrir Menu de usuário" data-toggle="dropdown"><i class="fas fa-angle-down" aria-hidden="true"></i>
                     </button>
                     <div class="br-notification">
                       <div class="notification-header">
                         <div class="row">
-                          <div class="col-10"><span class="text-bold">Fulano da Silva</span><br/><small>nome.sobrenome@dominio.gov</small></div>
+                          <div class="col-10"><span class="text-bold">current_user.name</span><br/><small>current_user.email</small></div>
                         </div>
                       </div>
                       <div class="notification-body">
@@ -81,6 +81,7 @@
                                 </button>
                               </div>
                             </div>
+
                             <div class="tab-panel active" id="notification-panel-2-27789">
                               <div class="br-list">
                                 <button class="br-item" type="button"><span class="br-tag status small warning"></span><span class="text-bold">Título</span><span class="text-medium mb-2">25 de out</span><span>Nostrud consequat culpa ex mollit aute. Ex ex veniam ea labore laboris duis duis elit. Ex aute dolor enim aute Lorem dolor. Duis labore ad anim culpa. Non aliqua excepteur sunt eiusmod ex consectetur ex esse laborum velit ut aute.</span>
@@ -114,14 +115,9 @@
             </div>
             <div class="header-search">
 
-            <!-- Campo de pesquisa
-              <div class="br-input has-icon">
-                <label for="searchbox-51271">Texto da pesquisa</label>
-                <input id="searchbox-51271" type="text" placeholder="O que você procura?"/>
-                <button class="br-button circle small" type="button" aria-label="Pesquisar"><i class="fas fa-search" aria-hidden="true"></i>
-                </button>
-              </div>
-            -->
+
+
+
               <button class="br-button circle search-close ml-1" type="button" aria-label="Fechar Busca" data-dismiss="search"><i class="fas fa-times" aria-hidden="true"></i>
               </button>
             </div>
