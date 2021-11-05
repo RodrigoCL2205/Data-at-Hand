@@ -28,3 +28,6 @@ document.addEventListener('turbolinks:load', () => {
   // Call your functions here, e.g:
   // initSelect2();
 });
+
+// Degign System import
+import "@govbr/dsgov/dist/dsgov.min.js";
