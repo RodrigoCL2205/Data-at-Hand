@@ -1,7 +1,6 @@
-class CreateSamples < ActiveRecord::Migration[6.1]
+class CreateClients < ActiveRecord::Migration[6.1]
   def change
-    create_table :samples do |t|
-      t.string :client
+    create_table :clients do |t|
       t.string :name
       t.string :city
       t.string :state
