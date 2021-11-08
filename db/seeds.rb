@@ -11,34 +11,48 @@ require 'json'
 require 'open-uri'
 require 'csv'
 
+puts "Destoying all Rejections"
+Rejection.destroy_all
+puts "All Rejections destroyed"
+
+
+
+puts 'Destoying all Samples Rejections Reasons database'
+RejectionReason.destroy_all
+puts "All Rejections Reasons destroyed."
+
+puts "Destoying all Samples."
+Sample.destroy_all
+puts "All samples destroyed."
+
 puts 'Cleaning clients database...'
 Client.destroy_all
+puts 'All Clients destroyed.'
+
+puts 'creating rejections reasons'
+ocorrencias = File.dirname(__FILE__) + "/ocorrencias.csv"
+CSV.foreach(ocorrencias, { col_sep: ';' }) do |row|
+  rejection = RejectionReason.create!(codigo: row[0][1..-1][0..-2], description: row[1])
+  puts "Added #{rejection.codigo}"
+end
+puts 'Rejection Reasons created!'
 
 puts 'Starting clients seed...'
-
 path = Rails.root.join('db','estados-cidades.json')
-
 uf_cidades_url = File.read(path)
 estados_cidades = JSON.parse(uf_cidades_url)
-
 100.times do
   estado = estados_cidades['estados'].sample
   nome_estado = estado['nome']
-
   cidade = estado['cidades'].sample
-
   client = Client.create(
   name: Faker::Company.name,
   state: nome_estado,
   city: cidade)
   puts "Included #{client.name}"
 end
-
 puts "Clients insert succesfully"
 
-puts "Destoying all Samples."
-Sample.destroy_all
-puts "All samples destroyed."
 
 puts "parsing Samples CSV file."
 
@@ -50,7 +64,7 @@ CSV.foreach(filepath, csv_options) do |row|
     puts "Creating sample."
     sample = Sample.new(
       sample_number: row['sample_number'],
-      client_id: 1,
+      client_id: Client.all.sample.id,
       data_recepcao: row['data_de_recepcao'],
       programa: row['programa'],
       matriz: row['matriz'],
@@ -66,10 +80,35 @@ CSV.foreach(filepath, csv_options) do |row|
       data_descarte: row['data_do_descarte']
     )
     sample.save!
+    if RejectionReason.where(codigo: row['motivo_de_rejeicao']) != []
+      puts "sample id #{sample.id}"
+      puts "Creating new Rejection"
+      rejection = Rejection.new(
+        sample_id: sample.id,
+        rejection_reason_id: RejectionReason.where(codigo: row['motivo_de_rejeicao']).first.id
+      )
+
+      rejection.save!
+      puts "Rejection created!"
+    end
     puts "Created sample #{sample.id}"
   else
+    if RejectionReason.where(codigo: row['motivo_de_rejeicao']) != []
+      p row['motivo_de_rejeicao'].size
+      p row['motivo_de_rejeicao']
+      puts "Creating new Rejection"
+      rejection = Rejection.new(
+        sample_id: Sample.where(sample_number: row['sample_number']).first.id,
+        rejection_reason_id: RejectionReason.where(codigo: row['motivo_de_rejeicao']).first.id
+      )
+
+      rejection.save!
+      puts "Rejection created!"
+    end
     puts "Sample #{row['sample_number']} already exists"
+
   end
 end
 
 puts "Parsing finished!"
+
