@@ -1,0 +1,87 @@
+(R01.01);Amostra em degradação/decomposição 
+(R01.02);Animal vivo alimentado 
+(R01.03);Unidades de amostras com lotes divergentes 
+(R01.04);Amostras incompatíveis dentro da mesma embalagem 
+(R01.05);Animal morto 
+(R01.06);Amostras de cultura sem crescimento 
+(R01.07);Amostra com evidência de contaminação 
+(R01.08);A matriz da amostra é incorreta para a realização da análise 
+(R01.09);Amostra com mais de um tronco encefálico 
+(R01.10);Amostra de contraprova imprópria para análise 
+(R01.11);Amostra com matérias primas incompatíveis 
+(R01.12);Amostra com conservante (meio de transporte) inadequado 
+(R01.13);Amostra com conservante (meio de transporte) em quantidade insuficiente
+(R01.14);Ovos trincados 
+(R01.15);Amostras com prazo de validade da amostra vencido ou insuficiente para a realização de todos os ensaios
+(R01.16);Amostra com preparação ou limpeza da amostra insuficiente 
+(R01.17);Quantidade insuficiente de amostra 
+(R01.18);Soros hemolisados 
+(R01.19);Soros lipêmicos 
+(R01.20);Amostra com pH inadequado 
+(R01.21);Amostra com temperatura inadequada 
+(R01.22);Tipo de suabe inadequado para a amostra 
+(R01.23);*Não enquadra em nenhuma ocorrência anterior (nesse caso, será obrigatório o detalhamento da ocorrência no campo observações) 
+(R02.01);Amostra inexistente de contrato para o ensaio solicitado 
+(R02.02);Amostra representativa não acordada com Laboratório 
+(R02.03);Amostra excedente ao contrato 
+(R02.04);Amostra excedente à Capacidade Operacional suportada 
+(R03.01);Documento de encaminhamento sem amostra 
+(R03.02);Embalagem ou frasco vazio 
+(R04.01);Análise suspensa já acordada com cliente 
+(R05.01);Amostra com identificação de origem 
+(R05.02);Carimbo com identificação de origem 
+(R05.03);Cinta com identificação de origem 
+(R05.04);Invólucro com identificação de origem 
+(R05.05);Lacre com identificação de origem 
+(R06.01);Ausência de documento de encaminhamento da amostra 
+(R06.02);Ausência ou inconsistência de informação no documento 
+(R06.03);Documento com dados ilegíveis 
+(R06.04);Documento danificado 
+(R06.05);Documento fora do padrão 
+(R06.06);Documento junto com amostra lacrada 
+(R06.07);Documento sem assinatura, carimbo ou identificação 
+(R06.08);Documento com assinatura de pessoa não autorizada 
+(R06.09);Idade declarada do animal fora da faixa estabelecida 
+(R06.10);Erro de preenchimento ou com rasura 
+(R06.11);Não correção de irregularidade na documentação no prazo de 30 dias
+(R06.12);Documentação encaminhada não corresponde à amostra 
+(R06.13);Quantidade de itens de ensaio em desacordo com a documentação 
+(R06.14);Registro ausente ou inconsistente no sistema gerador de amostras 
+(R07.01);Frasco ou invólucro primário transparente em análise sensível à luz 
+(R07.02);Frasco ou invólucro secundário translúcido / opaco impedindo a visualização da cinta
+(R07.03);Composição química do invólucro ou embalagem primária inadequada 
+(R07.04);Embalagem em coletor universal 
+(R07.05);Embalagem primária ou secundária danificada ou trincada 
+(R07.06);Embalagem ou frasco com vedação inadequada 
+(R07.07);*Não enquadra em nenhuma ocorrência anterior (nesse caso, será obrigatório o detalhamento da ocorrência no campo observações)
+(R08.01);Amostra não pertence ao laboratório 
+(R08.02);O laboratório não realiza o ensaio 
+(R08.03);Laboratório não realiza análise pericial 
+(R09.01);Ausência da fita identificadora autenticada 
+(R09.02);Lacre ausente 
+(R09.03);Lacre de composição inadequada 
+(R09.04);Lacre fixado de forma violável 
+(R09.05);Lacre com numeração divergente do informado no documento 
+(R09.06);Lacre sem numeração 
+(R09.07);Lacre violado ou rompido 
+(R09.08);*Não enquadra em nenhuma ocorrência anterior (nesse caso, será obrigatório o detalhamento da ocorrência no campo observações)
+(R10.01);Amostra colhida há mais de 45 dias  
+(R10.02);Amostra com prazo de recebimento vencido 
+(R11.01);Cinta ausente 
+(R11.02);Cinta com dados não visíveis 
+(R11.03);Cinta sem identificação ou carimbo do responsável pela coleta 
+(R11.04);Cinta externa ao invólucro lacrado 
+(R11.05);Cinta não corresponde à amostra 
+(R11.06);Cinta ou identificação do frasco danificado 
+(R11.07);Cinta ou identificação do frasco ilegível 
+(R11.08);Cinta ou identificação do frasco ausente 
+(R11.09);Identificação do frasco repetido 
+(R11.10);*Não enquadra em nenhuma ocorrência anterior (nesse caso, será obrigatório o detalhamento da ocorrência no campo observações)
+(R12.01);Outros = detalhar o motivo no campo observações 
+(R13.01);Amostra inviabilizada no armazenamento 
+(R13.02);Amostra inviabilizada durante o ensaio 
+(R13.03);Análise temporariamente suspensa 
+(R13.04);Ausência de insumo 
+(R13.05);Análise inviabilizada devido a alterações nas características da amostra, durante o ensaio
+(R13.06);Amostra extraviada 
+(R13.07);Análise inviabilizada por problemas com equipamento 
