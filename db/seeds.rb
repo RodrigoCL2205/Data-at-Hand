@@ -7,13 +7,15 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
+require 'json'
+require 'open-uri'
 require 'csv'
 
 puts "Destoying all Rejections"
 Rejection.destroy_all
 puts "All Rejections destroyed"
 
-puts 'creating rejections reasons'
+
 
 puts 'Destoying all Samples Rejections Reasons database'
 RejectionReason.destroy_all
@@ -23,45 +25,33 @@ puts "Destoying all Samples."
 Sample.destroy_all
 puts "All samples destroyed."
 
-ocorrencias = File.dirname(__FILE__) + "/ocorrencias.csv"
+puts 'Cleaning clients database...'
+Client.destroy_all
+puts 'All Clients destroyed.'
 
+puts 'creating rejections reasons'
+ocorrencias = File.dirname(__FILE__) + "/ocorrencias.csv"
 CSV.foreach(ocorrencias, { col_sep: ';' }) do |row|
   rejection = RejectionReason.create!(codigo: row[0][1..-1][0..-2], description: row[1])
   puts "Added #{rejection.codigo}"
 end
+puts 'Rejection Reasons created!'
 
-puts 'Rejections Reasons seeded'
-
-# Seed Client
-states = %w(AC, AL, AP, AM, BA, CE, DF, ES, GO, MA, MT, MS, PA, PB, PR, PE, PI, RJ, RN, RS, RO, RR, SC, SP, SE, TO)
-cities = ["Abadia de Goiás", "Abadia dos Dourados", "Abadiânia", "Abaetetuba", "Abaeté", "Abaiara", "Abaré", "Abatiá", "Abaíra", "Abdon Batista", "Abel Figueiredo",
-"Abelardo Luz", "Abre Campo", "Abreu e Lima", "Abreulândia", "Acaiaca", "Acajutiba", "Acarapé", "Acaraú", "Acari", "Acará", "Acauã", "Aceguá", "Acopiara", "Acorizal",
-"Acrelândia", "Acreúna", "Adamantina", "Adelândia", "Adolfo", "Adrianópolis", "Adustina", "Afogados da Ingazeira", "Afonso Bezerra", "Afonso Cláudio", "Afonso Cunha",
-"Afrânio", "Afuá", "Agrestina", "Agricolândia", "Agrolândia", "Agronômica", "Aguanil", "Aguaí", "Agudo", "Agudos", "Agudos do Sul", "Aguiar", "Aguiarnópolis", "Aimorés",
-"Aiquara", "Aiuaba", "Aiuruoca", "Ajuricaba", "Alagoa", "Alagoa Grande", "Alagoa Nova", "Alagoinha", "Alagoinha do Piauí", "Alagoinhas", "Alambari", "Albertina",
-"Alcantil", "Alcinópolis", "Alcobaça", "Alcântara", "Alcântaras", "Aldeias Altas", "Alecrim", "Alegre", "Alegrete", "Alegrete do Piauí", "Alegria", "Alenquer", "Alexandria",
-"Alexânia", "Alfenas", "Alfredo Chaves", "Alfredo Marcondes", "Alfredo Vasconcelos", "Alfredo Wagner", "Algodão de Jandaíra", "Alhandra", "Aliança", "Aliança do Tocantins",
-"Almadina", "Almas", "Almeirim", "Almenara", "Almino Afonso", "Almirante Tamandaré", "Almirante Tamandaré do Sul", "Aloândia", "Alpercata", "Alpestre", "Alpinópolis",
-"Alta Floresta", "Alta Floresta d'Oeste", "Altair", "Altamira", "Altamira do Maranhão", "Altamira do Paraná", "Altaneira", "Alterosa", "Altinho", "Altinópolis", "Alto Alegre",
-"Alto Alegre do Maranhão", "Alto Alegre do Parecis", "Alto Alegre do Pindaré", "Alto Araguaia", "Alto Bela Vista", "Alto Boa Vista",
-"Alto Caparaó", "Alto Feliz", "Alto Garças", "Alto Horizonte", "Alto Jequitibá", "Alto Longá", "Alto Paraguai", "Alto Paraná", "Alto Paraíso", "Alto Paraíso de Goiás",
-"Alto Parnaíba", "Alto Piquiri", "Alto Rio Doce", "Alto Rio Novo", "Alto Santo", "Alto Taquari", "Alto do Rodrigues", "Altos", "Altônia", "Alumínio", "Alvarenga",
-"Alvarães", "Alvinlândia", "Alvinópolis"]
-puts "Seed Client begins!"
-Client.destroy_all
-puts "Clients clean!"
-puts "Creating clients..."
-100.times do |i|
-  Client.create!(
-    name: Faker::Name.name,
-    city: cities.sample,
-    state: states.sample
-  )
-
+puts 'Starting clients seed...'
+path = Rails.root.join('db','estados-cidades.json')
+uf_cidades_url = File.read(path)
+estados_cidades = JSON.parse(uf_cidades_url)
+100.times do
+  estado = estados_cidades['estados'].sample
+  nome_estado = estado['nome']
+  cidade = estado['cidades'].sample
+  client = Client.create(
+  name: Faker::Company.name,
+  state: nome_estado,
+  city: cidade)
+  puts "Included #{client.name}"
 end
-puts "Seed Client completed!"
-
-require 'csv'
+puts "Clients insert succesfully"
 
 
 puts "parsing Samples CSV file."
@@ -121,3 +111,4 @@ CSV.foreach(filepath, csv_options) do |row|
 end
 
 puts "Parsing finished!"
+
