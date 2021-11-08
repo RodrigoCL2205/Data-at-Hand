@@ -6,33 +6,49 @@
   <%# <p><%= "#{sample.rg} #{sample.programa} #{sample.matriz}"</p> %>
 <%# <% end %>
 
-<h2>PACPOA - Carnes e produtos cárneos</h2>
-<p><%= @pacpoa[0] %></p>
-<hr>
-<h2>PACPOA - Leite e produtos lácteos</h2>
-<p><%= @pacpoa[1] %></p>
-<hr>
-<h2>PACPOA - Ovos e derivados</h2>
-<p><%= @pacpoa[2] %></p>
-<hr>
-<h2>PACPOA - Pescados e produtos da pesca</h2>
-<p><%= @pacpoa[3] %></p>
-<hr>
-<h2>PNCP - Listeria monocytogenes em produtos de origem animal</h2>
-<p><%= @listeria %></p>
-<hr>
-<h2>PNCP - Salmonella spp. em carcaças de frangos e perus (IN 20/2016)</h2>
-<p><%= @salmonela_frango %></p>
-<hr>
-<h2>PNCP - Escherichia coli e Salmonella spp. em carne bovina (IN 60/2018)</h2>
-<p><%= @ecoli %></p>
-<hr>
-<h2>PNCP - Salmonella spp. em superfície de carcaça de suínos (IN 60/2018)</h2>
-<p><%= @salmonela_suino %></p>
-<hr>
-<h2>Outros programas</h2>
-<p><%= @mic_outros %></p>
-<hr>
-<h2>Bebidas não alcoólicas</h2>
-<p><%= @bebidas_nao_alcoolicas %></p>
-<hr>
+<table>
+  <tr>
+    <th>Programa</th>
+    <th>Total</th>
+  </tr>
+  <tr>
+    <th>PACPOA - Carnes e produtos cárneos</th>
+    <td><%= @pacpoa[0] %></td>
+  </tr>
+  <tr>
+    <th>PACPOA - Leite e produtos lácteos</th>
+    <td><%= @pacpoa[1] %></td>
+  </tr>
+  <tr>
+    <th>PACPOA - Ovos e derivados</th>
+    <td><%= @pacpoa[2] %></td>
+  </tr>
+  <tr>
+    <th>PACPOA - Pescados e produtos da pesca</th>
+    <td><%= @pacpoa[3] %></td>
+  </tr>
+  <tr>
+    <th>PNCP - Listeria monocytogenes em produtos de origem animal</th>
+    <td><%= @listeria %></td>
+  </tr>
+  <tr>
+    <th>PNCP - Salmonella spp. em carcaças de frangos e perus (IN 20/2016)</th>
+    <td><%= @salmonela_frango %></td>
+  </tr>
+  <tr>
+    <th>PNCP - Escherichia coli e Salmonella spp. em carne bovina (IN 60/2018)</th>
+    <td><%= @ecoli %></td>
+  </tr>
+  <tr>
+    <th>PNCP - Salmonella spp. em superfície de carcaça de suínos (IN 60/2018)</th>
+    <td><%= @salmonela_suino %></td>
+  </tr>
+  <tr>
+    <th>Outros programas</th>
+    <td><%= @mic_outros %></td>
+  </tr>
+  <tr>
+    <th>Bebidas não alcoólicas</th>
+    <td><%= @bebidas_nao_alcoolicas %></td>
+  </tr>
+</table>
