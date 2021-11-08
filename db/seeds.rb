@@ -11,13 +11,18 @@ require 'csv'
 
 puts 'creating rejections reasons'
 
-puts 'cleaning Rejections Reasons database'
+puts 'Destoying all Samples Rejections Reasons database'
 RejectionReason.destroy_all
+puts "All Rejections Reasons destroyed."
+
+puts "Destoying all Samples."
+Sample.destroy_all
+puts "All samples destroyed."
 
 ocorrencias = File.dirname(__FILE__) + "/ocorrencias.csv"
 
 CSV.foreach(ocorrencias, { col_sep: ';' }) do |row|
-  rejection = RejectionReason.create!(codigo: row[0], description: row[1])
+  rejection = RejectionReason.create!(codigo: row[0][1..-1][0..-2], description: row[1])
   puts "Added #{rejection.codigo}"
 end
 
@@ -51,11 +56,7 @@ puts "Creating clients..."
 end
 puts "Seed Client completed!"
 
-require 'csv'
-
-puts "Destoying all Samples."
-Sample.destroy_all
-puts "All samples destroyed."
+# Starting Seed of Model Sample
 
 puts "parsing Samples CSV file."
 
@@ -67,7 +68,7 @@ CSV.foreach(filepath, csv_options) do |row|
     puts "Creating sample."
     sample = Sample.new(
       sample_number: row['sample_number'],
-      client_id: 1,
+      client_id: Client.all.sample.id,
       data_recepcao: row['data_de_recepcao'],
       programa: row['programa'],
       matriz: row['matriz'],
@@ -90,5 +91,3 @@ CSV.foreach(filepath, csv_options) do |row|
 end
 
 puts "Parsing finished!"
-
-
