@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_08_143823) do
+ActiveRecord::Schema.define(version: 2021_11_08_194138) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,7 +43,6 @@ ActiveRecord::Schema.define(version: 2021_11_08_143823) do
   create_table "samples", force: :cascade do |t|
     t.bigint "client_id", null: false
     t.integer "sample_number"
-    t.string "data_recepcao"
     t.string "programa"
     t.string "matriz"
     t.string "subgrupo"
@@ -52,13 +51,14 @@ ActiveRecord::Schema.define(version: 2021_11_08_143823) do
     t.string "area_analitica"
     t.string "objetivo_amostra"
     t.boolean "liberada"
-    t.string "data_liberacao"
     t.boolean "latente"
     t.boolean "descartada"
-    t.string "data_descarte"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "status"
+    t.date "data_recepcao"
+    t.date "data_liberacao"
+    t.date "data_descarte"
     t.index ["client_id"], name: "index_samples_on_client_id"
   end
 
