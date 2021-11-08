@@ -6,7 +6,6 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-
 require 'csv'
 
 puts 'creating rejections reasons'
@@ -47,7 +46,7 @@ puts "Seed Client begins!"
 Client.destroy_all
 puts "Clients clean!"
 puts "Creating clients..."
-100.times do |i|
+100.times do
   Client.create!(
     name: Faker::Name.name,
     city: cities.sample,
