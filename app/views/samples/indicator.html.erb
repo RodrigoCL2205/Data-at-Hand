@@ -6,6 +6,8 @@
   <%# <p><%= "#{sample.rg} #{sample.programa} #{sample.matriz}"</p> %>
 <%# <% end %>
 
+<p><%= "#{@listeria_status[:finalizada]} #{@listeria_status[:aguardando]}" %></p>
+
 <table>
   <tr>
     <th>Programa</th>
@@ -29,7 +31,7 @@
   </tr>
   <tr>
     <th>PNCP - Listeria monocytogenes em produtos de origem animal</th>
-    <td><%= @listeria %></td>
+    <td><%= @listeria.count %></td>
   </tr>
   <tr>
     <th>PNCP - Salmonella spp. em carcaças de frangos e perus (IN 20/2016)</th>
