@@ -51,41 +51,37 @@
 (R07.02);Frasco ou invólucro secundário translúcido / opaco impedindo a visualização da cinta
 (R07.03);Composição química do invólucro ou embalagem primária inadequada 
 (R07.04);Embalagem em coletor universal 
-(R07.05);Embalagem prim�ria ou secund�ria danificada ou trincada 
-(R07.06);Embalagem ou frasco com veda��o inadequada 
-(R07.07);"*N�o enquadra em nenhuma ocorr�ncia anterior (nesse caso, ser� obrigat�rio
-o detalhamento da ocorr�ncia no campo observa��es) "
-(R08.01);Amostra n�o pertence ao laborat�rio 
-(R08.02);O laborat�rio n�o realiza o ensaio 
-(R08.03);Laborat�rio n�o realiza an�lise pericial 
-(R09.01);Aus�ncia da fita identificadora autenticada 
+(R07.05);Embalagem primária ou secundária danificada ou trincada 
+(R07.06);Embalagem ou frasco com vedação inadequada 
+(R07.07);*Não enquadra em nenhuma ocorrência anterior (nesse caso, será obrigatório o detalhamento da ocorrência no campo observações)
+(R08.01);Amostra não pertence ao laboratório 
+(R08.02);O laboratório não realiza o ensaio 
+(R08.03);Laboratório não realiza análise pericial 
+(R09.01);Ausência da fita identificadora autenticada 
 (R09.02);Lacre ausente 
-(R09.03);Lacre de composi��o inadequada 
-(R09.04);Lacre fixado de forma viol�vel 
-(R09.05);Lacre com numera��o divergente do informado no documento 
-(R09.06);Lacre sem numera��o 
+(R09.03);Lacre de composição inadequada 
+(R09.04);Lacre fixado de forma violável 
+(R09.05);Lacre com numeração divergente do informado no documento 
+(R09.06);Lacre sem numeração 
 (R09.07);Lacre violado ou rompido 
-(R09.08);"*N�o enquadra em nenhuma ocorr�ncia anterior (nesse caso, ser� obrigat�rio
-o detalhamento da ocorr�ncia no campo observa��es) "
-(R10.01);Amostra colhida h� mais de 45 dias  
+(R09.08);*Não enquadra em nenhuma ocorrência anterior (nesse caso, será obrigatório o detalhamento da ocorrência no campo observações)
+(R10.01);Amostra colhida há mais de 45 dias  
 (R10.02);Amostra com prazo de recebimento vencido 
 (R11.01);Cinta ausente 
-(R11.02);Cinta com dados n�o vis�veis 
-(R11.03);Cinta sem identifica��o ou carimbo do respons�vel pela coleta 
-(R11.04);Cinta externa ao inv�lucro lacrado 
-(R11.05);Cinta n�o corresponde � amostra 
-(R11.06);Cinta ou identifica��o do frasco danificado 
-(R11.07);Cinta ou identifica��o do frasco ileg�vel 
-(R11.08);Cinta ou identifica��o do frasco ausente 
-(R11.09);Identifica��o do frasco repetido 
-(R11.10);"*N�o enquadra em nenhuma ocorr�ncia anterior (nesse caso, ser� obrigat�rio
-o detalhamento da ocorr�ncia no campo observa��es) "
-(R12.01);Outros = detalhar o motivo no campo observa��es 
+(R11.02);Cinta com dados não visíveis 
+(R11.03);Cinta sem identificação ou carimbo do responsável pela coleta 
+(R11.04);Cinta externa ao invólucro lacrado 
+(R11.05);Cinta não corresponde à amostra 
+(R11.06);Cinta ou identificação do frasco danificado 
+(R11.07);Cinta ou identificação do frasco ilegível 
+(R11.08);Cinta ou identificação do frasco ausente 
+(R11.09);Identificação do frasco repetido 
+(R11.10);*Não enquadra em nenhuma ocorrência anterior (nesse caso, será obrigatório o detalhamento da ocorrência no campo observações)
+(R12.01);Outros = detalhar o motivo no campo observações 
 (R13.01);Amostra inviabilizada no armazenamento 
 (R13.02);Amostra inviabilizada durante o ensaio 
-(R13.03);An�lise temporariamente suspensa 
-(R13.04);Aus�ncia de insumo 
-(R13.05);"An�lise inviabilizada devido a altera��es nas caracter�sticas da
-amostra, durante o ensaio "
+(R13.03);Análise temporariamente suspensa 
+(R13.04);Ausência de insumo 
+(R13.05);Análise inviabilizada devido a alterações nas características da amostra, durante o ensaio
 (R13.06);Amostra extraviada 
-(R13.07);An�lise inviabilizada por problemas com equipamento 
+(R13.07);Análise inviabilizada por problemas com equipamento 

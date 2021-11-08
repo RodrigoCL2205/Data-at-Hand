@@ -15,7 +15,7 @@ RejectionReason.destroy_all
 
 ocorrencias = File.dirname(__FILE__) + "/ocorrencias.csv"
 
-CSV.foreach(ocorrencias) do |row|
+CSV.foreach(ocorrencias, { col_sep: ';' }) do |row|
   rejection = RejectionReason.create!(codigo: row[0], description: row[1])
   puts "Added #{rejection.codigo}"
 end
