@@ -7,6 +7,22 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
+require 'csv'
+
+puts 'creating rejections reasons'
+
+puts 'cleaning Rejections Reasons database'
+RejectionReason.destroy_all
+
+ocorrencias = File.dirname(__FILE__) + "/ocorrencias.csv"
+
+CSV.foreach(ocorrencias, { col_sep: ';' }) do |row|
+  rejection = RejectionReason.create!(codigo: row[0], description: row[1])
+  puts "Added #{rejection.codigo}"
+end
+
+puts 'Rejections Reasons seeded'
+
 # Seed Client
 states = %w(AC, AL, AP, AM, BA, CE, DF, ES, GO, MA, MT, MS, PA, PB, PR, PE, PI, RJ, RN, RS, RO, RR, SC, SP, SE, TO)
 cities = ["Abadia de Goiás", "Abadia dos Dourados", "Abadiânia", "Abaetetuba", "Abaeté", "Abaiara", "Abaré", "Abatiá", "Abaíra", "Abdon Batista", "Abel Figueiredo",
@@ -74,4 +90,5 @@ CSV.foreach(filepath, csv_options) do |row|
 end
 
 puts "Parsing finished!"
+
 
