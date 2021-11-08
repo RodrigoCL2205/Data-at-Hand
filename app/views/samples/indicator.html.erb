@@ -1,3 +1,54 @@
-<% @samples.each do |sample |%>
-  <p><% "#{@sample.rg} #{@sample.area_analitica} #{@sample.data_recepcao}"%></p>
-<% end %>
+<%# <% @samples.each do |sample |%>
+  <%# <p><%= "#{sample.rg} #{sample.area_analitica} #{sample.data_recepcao}"%></p> %>
+<%# <% end %>
+
+<%# <% @carne.each do |sample| %>
+  <%# <p><%= "#{sample.rg} #{sample.programa} #{sample.matriz}"</p> %>
+<%# <% end %>
+
+<table>
+  <tr>
+    <th>Programa</th>
+    <th>Total</th>
+  </tr>
+  <tr>
+    <th>PACPOA - Carnes e produtos cárneos</th>
+    <td><%= @pacpoa[0] %></td>
+  </tr>
+  <tr>
+    <th>PACPOA - Leite e produtos lácteos</th>
+    <td><%= @pacpoa[1] %></td>
+  </tr>
+  <tr>
+    <th>PACPOA - Ovos e derivados</th>
+    <td><%= @pacpoa[2] %></td>
+  </tr>
+  <tr>
+    <th>PACPOA - Pescados e produtos da pesca</th>
+    <td><%= @pacpoa[3] %></td>
+  </tr>
+  <tr>
+    <th>PNCP - Listeria monocytogenes em produtos de origem animal</th>
+    <td><%= @listeria %></td>
+  </tr>
+  <tr>
+    <th>PNCP - Salmonella spp. em carcaças de frangos e perus (IN 20/2016)</th>
+    <td><%= @salmonela_frango %></td>
+  </tr>
+  <tr>
+    <th>PNCP - Escherichia coli e Salmonella spp. em carne bovina (IN 60/2018)</th>
+    <td><%= @ecoli %></td>
+  </tr>
+  <tr>
+    <th>PNCP - Salmonella spp. em superfície de carcaça de suínos (IN 60/2018)</th>
+    <td><%= @salmonela_suino %></td>
+  </tr>
+  <tr>
+    <th>Outros programas</th>
+    <td><%= @mic_outros %></td>
+  </tr>
+  <tr>
+    <th>Bebidas não alcoólicas</th>
+    <td><%= @bebidas_nao_alcoolicas %></td>
+  </tr>
+</table>
