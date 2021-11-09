@@ -6,6 +6,14 @@ class SamplesController < ApplicationController
     segmentation
   end
 
+  # funcao que vai chamar o indicador 02
+  def two
+  end
+
+  # funcao que vai chamar o indicador 30
+  def thirty
+  end
+
   private
 
   # separa a segmentacao: area analitica MIC
