@@ -3,7 +3,21 @@ class SamplesController < ApplicationController
   # funcao que vai chamar o indicador 12
   def twelve
     @mic = {}
+    @start_time = Date.new(Time.now.year,1,1)
+    @end_time = Date.new(Time.now.year,12,31)
+    @total_mic = Sample.area_analitica('MIC').where('data_recepcao >= ? AND data_recepcao <= ? ', "#{@start_time}", "#{@end_time}")
     segmentation
+  end
+
+  def ask_time
+    if params[:start_time].present? && params[:end_time]
+      @start_time = params[:start_time]
+      @end_time = params[:end_time]
+      redirect_to '/indicadores/12', notice: "Relatório gerado com sucesso"
+    else
+      @start_time = Date.new(Time.now.year,1,1)
+      @end_time = Date.new(Time.now.year,12,31)
+    end
   end
 
   # funcao que vai chamar o indicador 02
@@ -19,25 +33,24 @@ class SamplesController < ApplicationController
   # separa a segmentacao: area analitica MIC
   def segmentation
     # Total
-    total_mic = Sample.area_analitica('MIC')
-    @mic["total"] = status_count(total_mic)
+    @mic["total"] = status_count(@total_mic)
 
     # PACPOA: contagem separada por matriz e programa = PACPOA
     matriz_pacpoa = ['CARNE', 'LEITE', 'OVO', 'PESCADO']
     matriz_pacpoa.each do |matriz|
-      segment = total_mic.programa('PACPOA').matriz(matriz)
+      segment = @total_mic.programa('PACPOA').matriz(matriz)
       @mic["PACPOA_#{matriz}"] = status_count(segment)
     end
 
     # PNCP: contagem separada por programa
     pncp = ['Listeria', 'Aves', 'STEC', 'Suínos']
     pncp.each do |name|
-      segment = total_mic.programa(name)
+      segment = @total_mic.programa(name)
       @mic["PNCP_#{name}"] = status_count(segment)
     end
 
     # Bebidas nao alcoolicas: amostras de origem vegetal
-    bebidas = total_mic.matriz('VEGETAL')
+    bebidas = @total_mic.matriz('VEGETAL')
     @mic['bebidas'] = status_count(bebidas)
 
     # Outros
