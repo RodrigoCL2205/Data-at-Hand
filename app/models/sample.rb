@@ -1,6 +1,7 @@
 class Sample < ApplicationRecord
   belongs_to :client
-  has_many :rejection_reasons, through: :rejection
+  has_many :rejections
+  has_many :rejection_reasons, through: :rejections
 
   scope :area_analitica, ->(name) { where(area_analitica: name) }
   scope :programa, ->(name) { where('programa ILIKE ?', "%#{name}%") }

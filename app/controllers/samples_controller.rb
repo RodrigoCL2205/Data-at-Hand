@@ -6,6 +6,9 @@ class SamplesController < ApplicationController
     @total = Sample.area_analitica('MIC').count
     @finalizadas = samples_count(@mic, 'finalizada')
     @aguardando = samples_count(@mic, 'aguardando')
+    @rejeitadas = Sample.area_analitica('MIC').where(status: 'R', liberada: true)
+    @rejeitadas_contagem = @rejeitadas.count
+    @rejeitadas_externo = @rejeitadas.includes(:rejection_reasons).where('rejection_reasons.codigo ILIKE ?', "%R13%").references(:rejection_reasons).count
   end
 
   private
