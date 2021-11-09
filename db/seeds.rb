@@ -65,7 +65,7 @@ CSV.foreach(filepath, csv_options) do |row|
     sample = Sample.new(
       sample_number: row['sample_number'],
       client_id: Client.all.sample.id,
-      data_recepcao: row['data_de_recepcao'],
+      data_recepcao: (Date.parse row['data_de_recepcao'] unless row['data_de_recepcao'].nil?),
       programa: row['programa'],
       matriz: row['matriz'],
       subgrupo: row['subgrupo'],
@@ -74,10 +74,10 @@ CSV.foreach(filepath, csv_options) do |row|
       status: row['status'],
       objetivo_amostra: row['objetivo_da_amostra'],
       liberada: row['liberada'] == 'T',
-      data_liberacao: row['data_da_liberacao'],
+      data_liberacao: (Date.parse row['data_da_liberacao'] unless row['data_da_liberacao'].nil?),
       latente: row['latente'] == 'T',
       descartada: row['descartada'],
-      data_descarte: row['data_do_descarte']
+      data_descarte: (Date.parse row['data_do_descarte'] unless row['data_do_descarte'].nil?)
     )
     sample.save!
     if RejectionReason.where(codigo: row['motivo_de_rejeicao']) != []
@@ -111,4 +111,3 @@ CSV.foreach(filepath, csv_options) do |row|
 end
 
 puts "Parsing finished!"
-
