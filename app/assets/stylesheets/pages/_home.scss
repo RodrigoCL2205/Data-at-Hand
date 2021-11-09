@@ -1,1 +1,21 @@
 // Specific CSS for your home-page
+.form-cards {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  border: none;
+}
+
+.card i {
+  font-size: 64px;
+}
+
+.card p {
+  font-size: 16px;
+}
