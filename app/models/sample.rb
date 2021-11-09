@@ -1,5 +1,6 @@
 class Sample < ApplicationRecord
   belongs_to :client
+  has_many :rejections
   has_many :rejection_reasons, through: :rejection
 
   scope :area_analitica, ->(name) { where(area_analitica: name) }
