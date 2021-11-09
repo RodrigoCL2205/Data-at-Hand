@@ -1,56 +1,44 @@
-<%# <% @samples.each do |sample |%>
-  <%# <p><%= "#{sample.rg} #{sample.area_analitica} #{sample.data_recepcao}"%></p> %>
-<%# <% end %>
-
-<%# <% @carne.each do |sample| %>
-  <%# <p><%= "#{sample.rg} #{sample.programa} #{sample.matriz}"</p> %>
-<%# <% end %>
-
-<p><%= "#{@listeria_status[:finalizada]} #{@listeria_status[:aguardando]}" %></p>
+<h2>FORM 049 007 - Percentual de Amostras Processadas - Indicador 12</h2>
 
 <table>
+
   <tr>
+    <th>Área</th>
     <th>Programa</th>
-    <th>Total</th>
+    <th>Finalizadas</th>
+    <th>Aguardando Análise</th>
+    <th>Amostras recebidas</th>
   </tr>
+
+  <% tabela_mic = [
+    ['PACPOA_CARNE', 'PACPOA - Carnes e produtos cárneos'],
+    ['PACPOA_LEITE', 'PACPOA - Leite e produtos lácteos'],
+    ['PACPOA_OVO', 'PACPOA - Ovos e derivados'],
+    ['PACPOA_PESCADO', 'PACPOA - Pescados e produtos da pesca'],
+    ['PNCP_Listeria', 'PNCP - Listeria monocytogenes em produtos de origem animal'],
+    ['PNCP_Aves', 'PNCP - Salmonella spp. em carcaças de frangos e perus (IN 20/2016)'],
+    ['PNCP_STEC', 'PNCP - Escherichia coli e Salmonella spp. em carne bovina (IN 60/2018)'],
+    ['PNCP_Suínos', 'PNCP - Salmonella spp. em superfície de carcaça de suínos (IN 60/2018)'],
+    ['outros', 'Outros programas'],
+    ['bebidas', 'Bebidas não alcoólicas']
+  ] %>
+
+  <% tabela_mic.each do |item| %>
+    <tr>
+      <td>MIC</td>
+      <td><%= item[1] %></td>
+      <td><%= @mic[item[0]][:finalizada] %></td>
+      <td><%= @mic[item[0]][:aguardando] %></td>
+      <td><%= @mic[item[0]][:total] %></td>
+    </tr>
+  <% end %>
+
   <tr>
-    <th>PACPOA - Carnes e produtos cárneos</th>
-    <td><%= @pacpoa[0] %></td>
+    <td>MIC</td>
+    <td>Total</td>
+    <td><%= @finalizadas %></td>
+    <td><%= @aguardando %></td>
+    <td><%= @total %></td>
   </tr>
-  <tr>
-    <th>PACPOA - Leite e produtos lácteos</th>
-    <td><%= @pacpoa[1] %></td>
-  </tr>
-  <tr>
-    <th>PACPOA - Ovos e derivados</th>
-    <td><%= @pacpoa[2] %></td>
-  </tr>
-  <tr>
-    <th>PACPOA - Pescados e produtos da pesca</th>
-    <td><%= @pacpoa[3] %></td>
-  </tr>
-  <tr>
-    <th>PNCP - Listeria monocytogenes em produtos de origem animal</th>
-    <td><%= @listeria.count %></td>
-  </tr>
-  <tr>
-    <th>PNCP - Salmonella spp. em carcaças de frangos e perus (IN 20/2016)</th>
-    <td><%= @salmonela_frango %></td>
-  </tr>
-  <tr>
-    <th>PNCP - Escherichia coli e Salmonella spp. em carne bovina (IN 60/2018)</th>
-    <td><%= @ecoli %></td>
-  </tr>
-  <tr>
-    <th>PNCP - Salmonella spp. em superfície de carcaça de suínos (IN 60/2018)</th>
-    <td><%= @salmonela_suino %></td>
-  </tr>
-  <tr>
-    <th>Outros programas</th>
-    <td><%= @mic_outros %></td>
-  </tr>
-  <tr>
-    <th>Bebidas não alcoólicas</th>
-    <td><%= @bebidas_nao_alcoolicas %></td>
-  </tr>
+
 </table>

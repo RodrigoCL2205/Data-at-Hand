@@ -1,47 +1,59 @@
 class SamplesController < ApplicationController
-  before_action :area_analitica
 
   def indicator
-    @pacpoa_samples = @mic.where("programa ILIKE ?", "PACPOA%")
-    pacpoa
-    pncp
-    bebidas_nao_alcoolicas
-    @mic_outros = @mic.count - @pacpoa.sum - @listeria.count - @salmonela_frango - @salmonela_suino - @ecoli - @bebidas_nao_alcoolicas
-    @listeria_status = {}
-    @listeria_status = status(@listeria)
+    @mic = {}
+    segmentation
+    @total = Sample.area_analitica('MIC').count
+    @finalizadas = samples_count(@mic, 'finalizada')
+    @aguardando = samples_count(@mic, 'aguardando')
   end
 
   private
 
-  def area_analitica
-    @mic = Sample.where(area_analitica: 'MIC')
-  end
-
-  def pacpoa
-    matriz_mic = ['CARNE', 'LEITE', 'OVO', 'PESCADO']
-    @pacpoa = []
-    matriz_mic.each_with_index do |matriz, index|
-      @pacpoa[index] = @pacpoa_samples.where(matriz: matriz).count
+  def segmentation
+    # PACPOA: contagem separada por matriz e programa = PACPOA
+    matriz_pacpoa = ['CARNE', 'LEITE', 'OVO', 'PESCADO']
+    matriz_pacpoa.each do |matriz|
+      segment = Sample.area_analitica('MIC').programa('PACPOA').matriz(matriz)
+      @mic["PACPOA_#{matriz}"] = status_count(segment)
     end
+
+    # PNCP: contagem separada por programa
+    pncp = ['Listeria', 'Aves', 'STEC', 'Suínos']
+    pncp.each do |name|
+      segment = Sample.area_analitica('MIC').programa(name)
+      @mic["PNCP_#{name}"] = status_count(segment)
+    end
+
+    # Bebidas nao alcoolicas: amostras de origem vegetal
+    bebidas = Sample.area_analitica('MIC').matriz('VEGETAL')
+    @mic['bebidas'] = status_count(bebidas)
+
+    # Outros
+    @mic['outros'] = others('MIC', @mic)
   end
 
-  def pncp
-    @listeria = @mic.where("programa ILIKE ?", "%Listeria%")
-    @salmonela_frango = @mic.where("programa ILIKE ?", "%Aves%").count
-    @ecoli = @mic.where("programa ILIKE ?", "%STEC%").count
-    @salmonela_suino = @mic.where("programa ILIKE ?", "%Superfície%").count
+  def others(area_analitica, hash)
+    outros = {}
+    outros[:total] = Sample.area_analitica(area_analitica).count - samples_count(hash, 'total')
+    outros[:finalizada] = Sample.area_analitica(area_analitica).finalizada.count - samples_count(hash, 'finalizada')
+    outros[:aguardando] = Sample.area_analitica(area_analitica).aguardando.count - samples_count(hash, 'aguardando')
+    return outros
   end
 
-  def bebidas_nao_alcoolicas
-    @bebidas_nao_alcoolicas = @mic.where(matriz: "PRODUTOS DE ORIGEM VEGETAL").count
-  end
-
-  def status(variavel)
+  def status_count(segment)
     hash = {}
-    hash[:finalizada] = variavel.where(status: 'A', liberada: true).count
-    hash[:aguardando] = variavel.where(liberada: false).count
-    # hash[:rejeitada_interno] = variavel.where(status: 'R', liberada: true).count
-    # hash[:rejeitada_externo] = variavel.where(status: 'R', liberada: false).count
+    hash[:total] = segment.count
+    hash[:finalizada] = segment.finalizada.count
+    hash[:aguardando] = segment.aguardando.count
     return hash
+  end
+
+  def samples_count(hash, status)
+    soma = 0
+    hash.each do |key, value|
+      soma += value[status.to_sym]
+    end
+    return soma
   end
 end

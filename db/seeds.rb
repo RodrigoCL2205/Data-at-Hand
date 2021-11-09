@@ -11,17 +11,17 @@ require 'json'
 require 'open-uri'
 require 'csv'
 
-puts "Destoying all Rejections"
+puts "Destroying all Rejections"
 Rejection.destroy_all
 puts "All Rejections destroyed"
 
 
 
-puts 'Destoying all Samples Rejections Reasons database'
+puts 'Destroying all Samples Rejections Reasons database'
 RejectionReason.destroy_all
 puts "All Rejections Reasons destroyed."
 
-puts "Destoying all Samples."
+puts "Destroying all Samples."
 Sample.destroy_all
 puts "All samples destroyed."
 
