@@ -11,6 +11,11 @@ require 'json'
 require 'open-uri'
 require 'csv'
 
+puts "Creating user"
+User.create!(email: 'user@dh.com', password: '123456')
+
+puts 'Pulando etapa de seed'
+
 puts "Destroying all Rejections"
 Rejection.destroy_all
 puts "All Rejections destroyed"
