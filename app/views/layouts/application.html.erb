@@ -12,42 +12,24 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload', defer: true %>
 
     <!-- Importado do DSGOV -->
-            <!-- Font Rawline-->
-        <link
-            rel="stylesheet"
-            href="https://cdn.dsgovserprodesign.estaleiro.serpro.gov.br/design-system/fonts/rawline/css/rawline.css"
-        />
-        <!-- Font Raleway-->
-        <link
-            rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700,800,900&amp;display=swap"/>
-        <!-- DSGOV CSS-->
-
-        <!-- Fontawesome-->
-        <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css"
-        />
-
-
+    <!-- Fonte Rawline-->
+    <link rel="stylesheet" href="https://cdn.dsgovserprodesign.estaleiro.serpro.gov.br/design-system/fonts/rawline/css/rawline.css"/>
+    <!-- Fonte Raleway-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700,800,900&amp;display=swap"/>
+    <!-- Fontawesome-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css"/>
   </head>
 
   <body>
-
+  <div class="template-base">
     <%= render 'shared/navbar' %>
-
-
     <%= render 'shared/flashes' %>
-    <%# Início do Template DSGOV %>
-      <div class="template-base">
 
-        <%= yield %>
-      <%= render 'shared/footer' %>
+  <div class="container">
+    <%= yield %>
+  </div>
 
-    </div>
-
-
-
-
-
+  <%= render 'shared/footer' %>
+  </div>
   </body>
 </html>
