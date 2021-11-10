@@ -78,9 +78,9 @@ before_action :tabela_mic, only: :twelve
   def status_count(segment)
     hash = {}
     hash[:total] = segment.count
-    hash[:finalizada] = segment.finalizada.count
-    hash[:aguardando] = segment.aguardando.count
-    rejeitadas = segment.rejeitada
+    hash[:finalizada] = segment.finalizada(@end_time).count
+    hash[:aguardando] = segment.aguardando(@end_time).count
+    rejeitadas = segment.rejeitada(@end_time)
     hash[:rejeitada_interno] = rejeitadas.rejeitada_interno.count
     hash[:rejeitada_externo] = rejeitadas.count - hash[:rejeitada_interno]
     return hash

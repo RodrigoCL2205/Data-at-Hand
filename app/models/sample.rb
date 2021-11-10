@@ -6,9 +6,8 @@ class Sample < ApplicationRecord
   scope :area_analitica, ->(name) { where(area_analitica: name) }
   scope :programa, ->(name) { where('programa ILIKE ?', "%#{name}%") }
   scope :matriz, ->(name) { where('matriz ILIKE ?', "%#{name}%") }
-  scope :finalizada, -> { where(status: 'A', liberada: true) }
-  scope :aguardando, -> { where(liberada: false) }
-  # scope :aguardando, ->(end_time) { where(liberada: false).or(where('liberada ILIKE true AND data_liberacao < ?', "#{end_time}")) }
-  scope :rejeitada, -> { where(status: 'R', liberada: true) }
-  scope :rejeitada_interno, -> { includes(:rejection_reasons).where('rejection_reasons.codigo ILIKE ?', "%R13%").references(:rejection_reasons) }
+  scope :finalizada, ->(end_time) { where("status = 'A' AND liberada = true AND data_liberacao <= ?", "#{end_time}") }
+  scope :aguardando, ->(end_time) { where(liberada: false).or(where('liberada = true AND data_liberacao > ?', "#{end_time}")) }
+  scope :rejeitada, ->(end_time) { where("status ILIKE 'R' AND liberada = true AND data_liberacao <= ?", "#{end_time}") }
+  scope :rejeitada_interno, -> {includes(:rejection_reasons).where('rejection_reasons.codigo ILIKE ?', "%R13%").references(:rejection_reasons) }
 end
