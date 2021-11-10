@@ -1,1 +1,38 @@
 // Specific CSS for your home-page
+.form-cards {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  border: none;
+  color: #071d41;
+  padding: 15px;
+  border-radius: 5px;
+  text-decoration: none;
+  align-items: center;
+  margin-bottom: 16px;
+    i {
+      font-size: 64px;
+      width: 64px;
+    }
+
+    p {
+      font-size: 16px;
+      margin: 0;
+    }
+
+    &:hover {
+      transition: 250ms ease;
+      background-color: #071d41;
+      color: white;
+    }
+}
+
+.link {
+  text-decoration: none !important;
+}

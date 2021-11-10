@@ -1,14 +1,20 @@
 <h2>FORM 049 007 - Percentual de Amostras Processadas - Indicador 12</h2>
 
-<table>
+<h3>Período de <%= @start_time.strftime('%d/%b/%Y') %> a <%= @end_time.strftime('%d/%b/%Y') %></h3>
 
-  <tr>
+<table class="table table-hover">
+  <thead class="thead-dark">
+    <tr>
     <th>Área</th>
     <th>Programa</th>
     <th>Finalizadas</th>
+    <th>Rejeitadas<br>(Motivo externo)</th>
+    <th>Rejeitadas<br>(Motivo interno)</th>
     <th>Aguardando Análise</th>
     <th>Amostras recebidas</th>
   </tr>
+  </thead>
+
 
   <% tabela_mic = [
     ['PACPOA_CARNE', 'PACPOA - Carnes e produtos cárneos'],
@@ -28,6 +34,8 @@
       <td>MIC</td>
       <td><%= item[1] %></td>
       <td><%= @mic[item[0]][:finalizada] %></td>
+      <td><%= @mic[item[0]][:rejeitada_externo] %></td>
+      <td><%= @mic[item[0]][:rejeitada_interno] %></td>
       <td><%= @mic[item[0]][:aguardando] %></td>
       <td><%= @mic[item[0]][:total] %></td>
     </tr>
@@ -36,9 +44,11 @@
   <tr>
     <td>MIC</td>
     <td>Total</td>
-    <td><%= @finalizadas %></td>
-    <td><%= @aguardando %></td>
-    <td><%= @total %></td>
+    <td><%= @mic['total'][:finalizada] %></td>
+    <td><%= @mic['total'][:rejeitada_externo] %></td>
+    <td><%= @mic['total'][:rejeitada_interno] %></td>
+    <td><%= @mic['total'][:aguardando] %></td>
+    <td><%= @mic['total'][:total] %></td>
   </tr>
 
 </table>
