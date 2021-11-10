@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
   root to: 'pages#home'
+  get '/busca-personalizada', to: 'samples#custom_search', as: :custom_search
   get '/indicadores/12', to: 'samples#twelve', as: :twelve
   get '/indicadores/12', to: 'samples#time', as: :ask_time
   get '/indicadores/02', to: 'samples#two'
