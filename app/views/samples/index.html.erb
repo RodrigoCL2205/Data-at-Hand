@@ -20,7 +20,7 @@
     </tr>
     </thead>
 
-    <% @samples.each do |sample| %>
+    <% @samples.limit(100).each do |sample| %>
       <tr>
         <td><%= sample.sample_number %></td>
         <td><%= sample.client.name %></td>
