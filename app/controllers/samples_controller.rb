@@ -3,7 +3,8 @@ before_action :time_params, only: :twelve
 before_action :tabela_mic, only: :twelve
 
   def custom_search
-    @query = {}
+    @query
+    puts @query
   end
 
   # funcao que vai chamar o indicador 12
