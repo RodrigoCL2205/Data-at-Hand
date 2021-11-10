@@ -1,54 +1,36 @@
 <h2>FORM 049 007 - Percentual de Amostras Processadas - Indicador 12</h2>
 
-<h3>Período de <%= @start_time.strftime('%d/%b/%Y') %> a <%= @end_time.strftime('%d/%b/%Y') %></h3>
+<%= render 'time' %>
 
-<table class="table table-hover">
-  <thead class="thead-dark">
-    <tr>
-    <th>Área</th>
-    <th>Programa</th>
-    <th>Finalizadas</th>
-    <th>Rejeitadas<br>(Motivo externo)</th>
-    <th>Rejeitadas<br>(Motivo interno)</th>
-    <th>Aguardando Análise</th>
-    <th>Amostras recebidas</th>
-  </tr>
-  </thead>
+<% if params.present? %>
 
+  <h3>Período de <%= @start_time.strftime('%d/%b/%Y') %> a <%= @end_time.strftime('%d/%b/%Y') %></h3>
 
-  <% tabela_mic = [
-    ['PACPOA_CARNE', 'PACPOA - Carnes e produtos cárneos'],
-    ['PACPOA_LEITE', 'PACPOA - Leite e produtos lácteos'],
-    ['PACPOA_OVO', 'PACPOA - Ovos e derivados'],
-    ['PACPOA_PESCADO', 'PACPOA - Pescados e produtos da pesca'],
-    ['PNCP_Listeria', 'PNCP - Listeria monocytogenes em produtos de origem animal'],
-    ['PNCP_Aves', 'PNCP - Salmonella spp. em carcaças de frangos e perus (IN 20/2016)'],
-    ['PNCP_STEC', 'PNCP - Escherichia coli e Salmonella spp. em carne bovina (IN 60/2018)'],
-    ['PNCP_Suínos', 'PNCP - Salmonella spp. em superfície de carcaça de suínos (IN 60/2018)'],
-    ['outros', 'Outros programas'],
-    ['bebidas', 'Bebidas não alcoólicas']
-  ] %>
-
-  <% tabela_mic.each do |item| %>
-    <tr>
-      <td>MIC</td>
-      <td><%= item[1] %></td>
-      <td><%= @mic[item[0]][:finalizada] %></td>
-      <td><%= @mic[item[0]][:rejeitada_externo] %></td>
-      <td><%= @mic[item[0]][:rejeitada_interno] %></td>
-      <td><%= @mic[item[0]][:aguardando] %></td>
-      <td><%= @mic[item[0]][:total] %></td>
+  <table class="table table-hover">
+    <thead class="thead-dark">
+      <tr>
+      <th>Área</th>
+      <th>Programa</th>
+      <th>Finalizadas</th>
+      <th>Rejeitadas<br>(Motivo externo)</th>
+      <th>Rejeitadas<br>(Motivo interno)</th>
+      <th>Aguardando Análise</th>
+      <th>Amostras recebidas</th>
     </tr>
-  <% end %>
+    </thead>
 
-  <tr>
-    <td>MIC</td>
-    <td>Total</td>
-    <td><%= @mic['total'][:finalizada] %></td>
-    <td><%= @mic['total'][:rejeitada_externo] %></td>
-    <td><%= @mic['total'][:rejeitada_interno] %></td>
-    <td><%= @mic['total'][:aguardando] %></td>
-    <td><%= @mic['total'][:total] %></td>
-  </tr>
+    <% @tabela_mic.each do |item| %>
+      <tr>
+        <td>MIC</td>
+        <td><%= item[1] %></td>
+        <td><%= @mic[item[0]][:finalizada] %></td>
+        <td><%= @mic[item[0]][:rejeitada_externo] %></td>
+        <td><%= @mic[item[0]][:rejeitada_interno] %></td>
+        <td><%= @mic[item[0]][:aguardando] %></td>
+        <td><%= @mic[item[0]][:total] %></td>
+      </tr>
+    <% end %>
 
-</table>
+  </table>
+
+<% end %>
