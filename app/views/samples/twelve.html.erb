@@ -2,10 +2,9 @@
 
 <%= render 'time' %>
 
-<% if params.present? %>
+<% if params['start_time(1i)'].present? %>
 
   <h3>Período de <%= @start_time.strftime('%d/%b/%Y') %> a <%= @end_time.strftime('%d/%b/%Y') %></h3>
-
   <table class="table table-hover">
     <thead class="thead-dark">
       <tr>
