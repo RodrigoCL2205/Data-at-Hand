@@ -3,12 +3,18 @@
   background-image: url('https://source.unsplash.com/RlOAwXt2fEA/4204x2637');
   background-size: cover;
   height: 450px;
+  width: 100%;
   justify-content: center;
   align-items: center;
   h1 {
     font-weight: bold;
     color: white;
     text-shadow: 3px 3px 5px rgba(0,0,0,0.4);
+    text-align: center;
+  }
+
+  h3 {
+    text-align: center;
   }
 }
 
