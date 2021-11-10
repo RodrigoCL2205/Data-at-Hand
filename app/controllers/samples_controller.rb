@@ -10,7 +10,7 @@ class SamplesController < ApplicationController
 
   # funcao que pede a data o periodo para inserir no indicador 12
   def ask_time
-    twelve
+    #twelve
   end
 
   # funcao que vai chamar o indicador 02
@@ -26,8 +26,9 @@ class SamplesController < ApplicationController
   # converte os dados de params em start_time e end_time
   def time_params
     if params.present?
-      @start_time = Date.new("#{params["start_time(1i)"]}".to_i,"#{params["start_time(2i)"]}".to_i,"#{params["start_time(3i)"]}".to_i)
-      @end_time = Date.new("#{params["end_time(1i)"]}".to_i,"#{params["end_time(2i)"]}".to_i,"#{params["end_time(3i)"]}".to_i)
+      #@start_time = Date.new("#{params["start_time(1i)"]}".to_i,"#{params["start_time(2i)"]}".to_i,"#{params["start_time(3i)"]}".to_i)
+      #@end_time = Date.new("#{params["end_time(1i)"]}".to_i,"#{params["end_time(2i)"]}".to_i,"#{params["end_time(3i)"]}".to_i)
+      params.require(:twelve).permit(:start_time, :end_time)
     else
       @start_time = Date.new(Time.now.year,1,1)
       @end_time = Date.new(Time.now.year,12,31)
