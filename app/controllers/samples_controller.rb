@@ -1,20 +1,18 @@
 class SamplesController < ApplicationController
-  # before_action :time_params, only: :twelve
+before_action :time_params, only: :twelve
+before_action :tabela_mic, only: :twelve
 
   # funcao que vai chamar o indicador 12
   def twelve
     @mic = {}
-    if params[:start_time].present? && [:end_time].present?
-      time_params
-      @total_mic = Sample.area_analitica('MIC').where('data_recepcao >= ? AND data_recepcao <= ? ', "#{@start_time}", "#{@end_time}")
-      segmentation
-    end
+    @total_mic = Sample.area_analitica('MIC').where('data_recepcao >= ? AND data_recepcao <= ? ', "#{@start_time}", "#{@end_time}")
+    segmentation
   end
 
   # funcao que pede a data o periodo para inserir no indicador 12
   def ask_time
-    raise
     twelve
+    # raise
   end
 
   # funcao que vai chamar o indicador 02
@@ -29,13 +27,13 @@ class SamplesController < ApplicationController
 
   # converte os dados de params em start_time e end_time
   def time_params
-    # if params['start_time(1i)'].present?
+    if params['start_time(1i)'].present?
       @start_time = Date.new("#{params["start_time(1i)"]}".to_i,"#{params["start_time(2i)"]}".to_i,"#{params["start_time(3i)"]}".to_i)
       @end_time = Date.new("#{params["end_time(1i)"]}".to_i,"#{params["end_time(2i)"]}".to_i,"#{params["end_time(3i)"]}".to_i)
-    # else
-    #   @start_time = Date.new(Time.now.year,1,1)
-    #   @end_time = Date.new(Time.now.year,12,31)
-    # end
+    else
+      @start_time = Date.new(Time.now.year,1,1)
+      @end_time = Date.new(Time.now.year,12,31)
+    end
   end
 
   # separa a segmentacao: area analitica MIC
@@ -95,5 +93,21 @@ class SamplesController < ApplicationController
       soma += value[status.to_sym] unless key == 'total'
     end
     return soma
+  end
+
+  def tabela_mic
+    @tabela_mic = [
+      ['PACPOA_CARNE', 'PACPOA - Carnes e produtos cárneos'],
+      ['PACPOA_LEITE', 'PACPOA - Leite e produtos lácteos'],
+      ['PACPOA_OVO', 'PACPOA - Ovos e derivados'],
+      ['PACPOA_PESCADO', 'PACPOA - Pescados e produtos da pesca'],
+      ['PNCP_Listeria', 'PNCP - Listeria monocytogenes em produtos de origem animal'],
+      ['PNCP_Aves', 'PNCP - Salmonella spp. em carcaças de frangos e perus (IN 20/2016)'],
+      ['PNCP_STEC', 'PNCP - Escherichia coli e Salmonella spp. em carne bovina (IN 60/2018)'],
+      ['PNCP_Suínos', 'PNCP - Salmonella spp. em superfície de carcaça de suínos (IN 60/2018)'],
+      ['outros', 'Outros programas'],
+      ['bebidas', 'Bebidas não alcoólicas'],
+      ['total', 'Total']
+    ]
   end
 end

@@ -1,15 +1,9 @@
 <h2>Inserir período para a pesquisa</h2>
 
-<%# <%=  form_with url: "/indicadores/12", method: :get do |f| %>
-  <%# <%= f.label :start_time, 'Inserir data de início' %> %>
-  <%# <%= f.date_select :start_time %> %>
-  <%# <%= f.label :end_time, 'Inserir data de final' %> %>
-  <%# <%= f.date_select :end_time %> %>
-  <%# <%= f.submit "Gerar relatório" %> %>
-<%# <% end %> %> %>
-
-<%= simple_form_for :params, method: :get, as: :ask_time do |f| %>
-  <%= f.input :start_time, as: :date, order: [:day, :month, :year], label: 'Inserir data de início' %>
-  <%= f.input :end_time, as: :date, order: [:day, :month, :year], label: 'Inserir data de final' %>
+<%=  form_with url: "/indicadores/12", method: :get do |f| %>
+  <%= f.label :start_time, 'Inserir data de início' %>
+  <%= f.date_select :start_time %>
+  <%= f.label :end_time, 'Inserir data de final' %>
+  <%= f.date_select :end_time %>
   <%= f.submit "Gerar relatório" %>
 <% end %>

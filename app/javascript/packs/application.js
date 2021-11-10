@@ -23,11 +23,13 @@ import "bootstrap";
 
 // Internal imports, e.g:
 // import { initSelect2 } from '../components/init_select2';
+import { initMenu } from '../components/menuShow.js';
 
 document.addEventListener('turbolinks:load', () => {
   // Call your functions here, e.g:
   // initSelect2();
+  initMenu();
 });
 
 // Degign System import
-import "@govbr/dsgov/dist/dsgov.min.js";
+// import "@govbr/dsgov/dist/dsgov.min.js";
