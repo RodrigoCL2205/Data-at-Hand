@@ -2,9 +2,9 @@
 
 <h3>Período de <%= @start_time.strftime('%d/%b/%Y') %> a <%= @end_time.strftime('%d/%b/%Y') %></h3>
 
-<table>
-
-  <tr>
+<table class="table table-hover">
+  <thead class="thead-dark">
+    <tr>
     <th>Área</th>
     <th>Programa</th>
     <th>Finalizadas</th>
@@ -13,6 +13,8 @@
     <th>Aguardando Análise</th>
     <th>Amostras recebidas</th>
   </tr>
+  </thead>
+
 
   <% tabela_mic = [
     ['PACPOA_CARNE', 'PACPOA - Carnes e produtos cárneos'],
