@@ -1,0 +1,8 @@
+<%= form_tag samples_path, method: :get do %>
+  <%= text_field_tag :programa,
+    params[:programa],
+    class: "form-control",
+    placeholder: "Programa"
+  %>
+  <%= submit_tag "Search", class: "btn btn-primary" %>
+<% end %>

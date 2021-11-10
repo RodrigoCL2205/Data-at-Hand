@@ -22,6 +22,19 @@ before_action :tabela_mic, only: :twelve
   def thirty
   end
 
+  def index
+    @samples = Sample.all
+      if params[:programa].present?
+        raise
+      end
+
+  end
+
+  def query
+    @samples = Sample.all
+    @sample = Sample.new
+  end
+
   private
 
   # converte os dados de params em start_time e end_time
@@ -113,4 +126,11 @@ before_action :tabela_mic, only: :twelve
       ['total', 'Total']
     ]
   end
+
+  # def sample_params
+  #   params.require(:sample).permit(:client_id, :sample_number, :programa,
+  #      :matriz, :subgrupo, :produto, :rg, :area_analitica, :objetivo_amostra,
+  #      :liberada, :latente, :descartada, :status, :data_recepcao,
+  #      :data_liberacao, :data_descarte)
+  # end
 end
