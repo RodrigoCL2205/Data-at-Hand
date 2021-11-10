@@ -3,12 +3,18 @@
   background-image: url('https://source.unsplash.com/RlOAwXt2fEA/4204x2637');
   background-size: cover;
   height: 450px;
+  width: 100%;
   justify-content: center;
   align-items: center;
   h1 {
     font-weight: bold;
     color: white;
     text-shadow: 3px 3px 5px rgba(0,0,0,0.4);
+    text-align: center;
+  }
+
+  h3 {
+    text-align: center;
   }
 }
 
@@ -29,21 +35,21 @@
   text-decoration: none;
   align-items: center;
   margin-bottom: 16px;
-    i {
-      font-size: 64px;
-      width: 64px;
-    }
+  i {
+    font-size: 64px;
+    width: 64px;
+  }
 
-    p {
-      font-size: 16px;
-      margin: 0;
-    }
+  p {
+    font-size: 16px;
+    margin: 0;
+  }
 
-    &:hover {
-      transition: 250ms ease;
-      background-color: #071d41;
-      color: white;
-    }
+  &:hover {
+    transition: 250ms ease;
+    background-color: #071d41;
+    color: white;
+  }
 }
 
 .link {
