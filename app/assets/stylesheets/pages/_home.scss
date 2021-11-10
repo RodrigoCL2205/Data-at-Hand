@@ -8,14 +8,25 @@
 .card {
   display: flex;
   align-items: center;
-  flex-direction: column;
+  flex-direction: row;
   border: none;
+  color: #071d41;
+  padding: 15px;
+  border-radius: 5px;
+  text-decoration: none;
+    i {
+      font-size: 64px;
+      width: 64px;
+    }
+
+    p {
+      font-size: 16px;
+    }
+
+    &:hover {
+      transition: 250ms ease;
+      background-color: #071d41;
+      color: white;
+    }
 }
 
-.card i {
-  font-size: 64px;
-}
-
-.card p {
-  font-size: 16px;
-}
