@@ -1,6 +1,6 @@
 <h2>Selecionar campos</h2>
 
 <%= simple_form_for :custom_search do |f| %>
-  <%= f.input :programa, collection: Sample.order(:programa), as: :check_boxes %>
-  <%= f.submit %>
+  <%= f.input :objetivo_amostra, collection: Sample.select(:objetivo_amostra).order(:objetivo_amostra).distinct, as: :check_boxes, label_method: :objetivo_amostra %>
+  <%= f.submit "Gerar relatório "%>
 <% end %>
