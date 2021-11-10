@@ -9,8 +9,8 @@
       <div class="header-actions">
         <div class="header-links">
           <div class="d-flex flex-row">
-            <%= link_to "Amostras Processadas", indicator_path, class: "br-item" %>
-            <%= link_to "Amostras Processadas", indicator_path, class: "br-item" %>
+            <%= link_to "Amostras Processadas", "#", class: "br-item" %>
+            <%= link_to "Amostras Processadas", "#", class: "br-item" %>
 
           </div>
         </div><span class="br-divider vertical mx-half mx-sm-1"></span>
@@ -20,7 +20,7 @@
           <div class="avatar dropdown-toggle br-button sign-in small" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Meu cadastro</div>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
             <%= link_to "Action", "#", class: "dropdown-item" %>
-            <%= link_to "Indicador", indicator_path, class: "dropdown-item" %>
+
             <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
           </div>
         <% else %>
@@ -63,12 +63,12 @@
                   <nav class="menu-body">
                     <div class="menu-folder"><a class="menu-item" href="javascript: void(0)"><span class="icon"><i class="fas fa-bell" aria-hidden="true"></i></span><span class="content">Indicadores</span></a>
                       <ul>
-                        <li><%= link_to indicator_path, class: "menu-item" do %><span class="icon"><i class="fas fa-heart" aria-hidden="true"></i></span><span class="content">Amostras Processadas</span><% end %></li>
-                        <li><%= link_to indicator_path, class: "menu-item" do %><span class="icon"><i class="fas fa-heart" aria-hidden="true"></i></span><span class="content">Indicador 2</span><% end %></li>
-                        <li><%= link_to indicator_path, class: "menu-item" do %><span class="icon"><i class="fas fa-heart" aria-hidden="true"></i></span><span class="content">Indicador 3</span><% end %></li>
+                        <li><%= link_to "#", class: "menu-item" do %><span class="icon"><i class="fas fa-heart" aria-hidden="true"></i></span><span class="content">Amostras Processadas</span><% end %></li>
+                        <li><%= link_to "#", class: "menu-item" do %><span class="icon"><i class="fas fa-heart" aria-hidden="true"></i></span><span class="content">Indicador 2</span><% end %></li>
+                        <li><%= link_to "#", class: "menu-item" do %><span class="icon"><i class="fas fa-heart" aria-hidden="true"></i></span><span class="content">Indicador 3</span><% end %></li>
                       </ul>
                     </div>
-                    <%= link_to indicator_path, class: "menu-item" do %><span class="icon"><i class="fas fa-heart" aria-hidden="true"></i></span><span class="content">Busca Personalizada</span><% end %></li>
+                    <%= link_to "#", class: "menu-item" do %><span class="icon"><i class="fas fa-heart" aria-hidden="true"></i></span><span class="content">Busca Personalizada</span><% end %></li>
                     <!-- Campos para o menu descartados
                     <div class="menu-folder"><a class="menu-item" href="javascript: void(0)"><span class="icon"><i class="fas fa-bell" aria-hidden="true"></i></span><span class="content">Nível 1</span></a>
                       <ul>
