@@ -6,5 +6,7 @@ Rails.application.routes.draw do
   get '/indicadores/02', to: 'samples#two'
   get '/indicadores/30', to: 'samples#thirty'
 
+  resources :samples, only: [:index] do
+  end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

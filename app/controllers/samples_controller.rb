@@ -23,6 +23,10 @@ before_action :tabela_mic, only: :twelve
   def thirty
   end
 
+  def index
+    @samples = Sample.all
+  end
+
   private
 
   # converte os dados de params em start_time e end_time
