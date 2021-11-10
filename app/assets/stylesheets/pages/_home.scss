@@ -8,14 +8,28 @@
 .card {
   display: flex;
   align-items: center;
-  flex-direction: column;
+  flex-direction: row;
   border: none;
+  color: #071d41;
+  padding: 15px;
+  border-radius: 5px;
+  text-decoration: none;
+  align-items: center;
+  margin-bottom: 16px;
+    i {
+      font-size: 64px;
+      width: 64px;
+    }
+
+    p {
+      font-size: 16px;
+      margin: 0;
+    }
+
+    &:hover {
+      transition: 250ms ease;
+      background-color: #071d41;
+      color: white;
+    }
 }
 
-.card i {
-  font-size: 64px;
-}
-
-.card p {
-  font-size: 16px;
-}
