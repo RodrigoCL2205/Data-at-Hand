@@ -1,15 +1,19 @@
 class SamplesController < ApplicationController
-  before_action :time_params, only: :twelve
+  # before_action :time_params, only: :twelve
 
   # funcao que vai chamar o indicador 12
   def twelve
     @mic = {}
-    @total_mic = Sample.area_analitica('MIC').where('data_recepcao >= ? AND data_recepcao <= ? ', "#{@start_time}", "#{@end_time}")
-    segmentation
+    if params[:start_time].present? && [:end_time].present?
+      time_params
+      @total_mic = Sample.area_analitica('MIC').where('data_recepcao >= ? AND data_recepcao <= ? ', "#{@start_time}", "#{@end_time}")
+      segmentation
+    end
   end
 
   # funcao que pede a data o periodo para inserir no indicador 12
   def ask_time
+    raise
     twelve
   end
 
@@ -25,13 +29,13 @@ class SamplesController < ApplicationController
 
   # converte os dados de params em start_time e end_time
   def time_params
-    if params.present?
+    # if params['start_time(1i)'].present?
       @start_time = Date.new("#{params["start_time(1i)"]}".to_i,"#{params["start_time(2i)"]}".to_i,"#{params["start_time(3i)"]}".to_i)
       @end_time = Date.new("#{params["end_time(1i)"]}".to_i,"#{params["end_time(2i)"]}".to_i,"#{params["end_time(3i)"]}".to_i)
-    else
-      @start_time = Date.new(Time.now.year,1,1)
-      @end_time = Date.new(Time.now.year,12,31)
-    end
+    # else
+    #   @start_time = Date.new(Time.now.year,1,1)
+    #   @end_time = Date.new(Time.now.year,12,31)
+    # end
   end
 
   # separa a segmentacao: area analitica MIC
