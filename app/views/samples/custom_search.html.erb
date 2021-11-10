@@ -1,7 +1,33 @@
 <h2>Selecionar campos</h2>
 
 <%= simple_form_for :query, method: :get do |f| %>
-  <%= f.input :objetivo_amostra, label: 'Objetivo', collection: Sample.select(:objetivo_amostra).order(:objetivo_amostra).distinct, as: :check_boxes, label_method: :objetivo_amostra %>
-  <%= f.input :texto, collection: ['alpha', 'beta', 'gama'], as: :check_boxes %>
+  <%# Status %>
+  <%= f.input :status, label: 'Status da amostra', collection: @sample_fields[:status], as: :check_boxes %>
+  <%# Programa %>
+  <%= f.input :programa, label: 'Programa', collection: @sample_fields[:programa], as: :check_boxes %>
+  <%# Area Analitica %>
+  <%= f.input :area_analitica, label: 'Área analítica', collection: @sample_fields[:area_analitica], as: :check_boxes %>
+  <%# Matriz %>
+  <%= f.input :matriz, label: 'Matriz', collection: @sample_fields[:matriz], as: :check_boxes %>
+  <%# Data recepcao %>
+  <%= f.input :data_recepcao, label: 'Data de Recepção', as: :string, required: false, input_html: {class: "datepicker"} %>
+  <%# Data liberacao %>
+  <%= f.input :data_liberacao, label: 'Data de Liberação', as: :string, required: false, input_html: {class: "datepicker"} %>
+  <%# UF %>
+  <%= f.input :uf, label: 'Programa', collection: @uf, as: :select %>
+  <%# Motivo rejeicao %>
+  <%= f.input :rejection_reasons, label: 'Motivo de Rejeição', collection: @rejection_reasons, as: :select %>
   <%= f.submit "Gerar relatório "%>
 <% end %>
+
+<%# Status (checkbox)
+Programa (checkbox)
+Matriz (checkbox)
+Área Analítica (checkbox)
+Data Recepção (calendar)
+Data Liberação (calendar)
+UF (lista)
+Motivo de Rejeição (lista)
+RG (show)
+Cidade (show)
+Cliente (show) %>

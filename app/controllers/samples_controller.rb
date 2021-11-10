@@ -1,10 +1,21 @@
 class SamplesController < ApplicationController
 before_action :time_params, only: :twelve
 before_action :tabela_mic, only: :twelve
+before_action :form_fields, only: :custom_search
+
+  def index
+  end
 
   def custom_search
     @query
-    puts @query
+
+    segment = Sample.all
+    segment.matriz([@query[:matriz]]) if params[:matriz].present?
+    segment.area_analitica([@query[:area_analitica]]) if params[:area_analitica].present?
+    if params[:status].present?
+    end
+
+    index
   end
 
   # funcao que vai chamar o indicador 12
@@ -32,9 +43,6 @@ before_action :tabela_mic, only: :twelve
   # converte os dados de params em start_time e end_time
   def time_params
     if params[:twelve].present?
-      #@start_time = Date.new("#{params["start_time(1i)"]}".to_i,"#{params["start_time(2i)"]}".to_i,"#{params["start_time(3i)"]}".to_i)
-      #@end_time = Date.new("#{params["end_time(1i)"]}".to_i,"#{params["end_time(2i)"]}".to_i,"#{params["end_time(3i)"]}".to_i)
-      #params.require(:twelve).permit(:start_time, :end_time)
       @start_time = params[:twelve][:start_time].to_date
       @end_time = params[:twelve][:end_time].to_date
 
@@ -116,6 +124,37 @@ before_action :tabela_mic, only: :twelve
       ['outros', 'Outros programas'],
       ['bebidas', 'Bebidas não alcoólicas'],
       ['total', 'Total']
+    ]
+  end
+
+  def form_fields
+    @sample_fields = {}
+
+    # campos da tabela Sample
+    array = ['matriz', 'area_analitica', ]
+    array.each do |item|
+      segment = Sample.select(item.to_sym).order(item.to_sym).distinct
+      nomes = []
+      segment.each do |sample|
+        nomes << sample[item.to_sym]
+      end
+      @sample_fields[item.to_sym] = nomes
+    end
+
+    # status da amostra
+    @sample_fields[:status] = ['Finalizada', 'Rejeitada', 'Aguardando']
+
+    # campo rejeicao - tabela Rejection
+    segment = RejectionReason.order(:codigo).all
+    @rejection_reasons = []
+    segment.each do |reason|
+      @rejection_reasons << [reason[:codigo], reason[:description]]
+    end
+
+    # campo UF - tabela Client
+    @uf = [
+      'AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 
+      'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO'
     ]
   end
 end
