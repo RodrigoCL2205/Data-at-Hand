@@ -2,10 +2,6 @@ class SamplesController < ApplicationController
 before_action :time_params, only: :twelve
 before_action :tabela_mic, only: :twelve
 
-  def custom_search
-    @query = {}
-  end
-
   # funcao que vai chamar o indicador 12
   def twelve
     @mic = {}
