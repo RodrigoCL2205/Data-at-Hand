@@ -4,8 +4,8 @@
       <div class="form-login">
         <h2>Filtro por período</h2>
         <%= simple_form_for :twelve, method: "get" do |f| %>
-          <%= f.input :start_time, as: :string, placeholder: "Data de Início", required: false, input_html: {id: "range_start"} %>
-          <%= f.input :end_time, as: :string, placeholder: "Data Final", required: false, input_html: {id: "range_end"} %>
+          <%= f.input :start_time, as: :string, label: "Data de Início", required: false, input_html: {id: "range_start"} %>
+          <%= f.input :end_time, as: :string, label: "Data Final", required: false, input_html: {id: "range_end"} %>
           <div class="form-actions">
             <%= f.button :submit, "Gerar Relatório", class: "btn btn-primary" %>
           </div>
