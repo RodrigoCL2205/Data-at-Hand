@@ -25,10 +25,14 @@ import "bootstrap";
 // import { initSelect2 } from '../components/init_select2';
 import { initMenu } from '../components/menuShow.js';
 
+// Flatpickr
+import { initFlatpickr } from "../plugins/flatpickr";
+
 document.addEventListener('turbolinks:load', () => {
   // Call your functions here, e.g:
   // initSelect2();
-  initMenu();
+  // initMenu();
+  initFlatpickr();
 });
 
 // Degign System import
