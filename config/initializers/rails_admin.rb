@@ -15,6 +15,8 @@ RailsAdmin.config do |config|
     end
   end
 
+  config.included_models = [ "Sample", "Rejection", "Client", "RejectionReason" ]
+
   ## == CancanCan ==
   # config.authorize_with :cancancan
 
