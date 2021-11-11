@@ -1,14 +1,17 @@
-<div class="container">
-  <br>
-  <p>Exibindo <strong><%= Sample.count %></strong> registros</p>
-  <%= paginate @samples %>
-</div>
+<h2>Resultado da Busca</h2>
+<p>Foram encontradas <strong><%= @quantidade %></strong> amostras.</p>
+
+ <%= paginate @samples %>
+
+<div id="table">
 
 <table class="table table-hover">
     <thead class="thead-dark">
       <tr>
       <th>Número da Amostra</th>
       <th>Cliente</th>
+      <th>Cidade</th>
+      <th>Estado</th>
       <th>Data de Recepção</th>
       <th>Programa</th>
       <th>Matriz</th>
@@ -30,6 +33,8 @@
       <tr>
         <td><%= sample.sample_number %></td>
         <td><%= sample.client.name %></td>
+        <td><%= sample.client.city %></td>
+        <td><%= sample.client.state %></td>
         <td><%= sample.data_recepcao.strftime('%d/%m/%Y') %></td>
         <td><%= sample.programa %></td>
         <td><%= sample.matriz %></td>
@@ -48,3 +53,5 @@
     <% end %>
 
   </table>
+
+  <%= paginate @samples %>
