@@ -1,114 +1,109 @@
 <div class="container">
   <div class="row justify-content-center m-3">
     <div class="col-12 col-sm-8">
-      <div class="w-200">
-        <%= form_tag samples_path, method: :get do %>
+        <%= simple_form_for :query, url: samples_path, method: "get" do |f| %>
 
           <div class="mb-3">
-            <%= label_tag :status, "Status", class: "form-label" %>
-            <%= select_tag :status,
-              options_for_select(@statuss),
-              include_blank: true,
-              class: "form-control form-select"
+            <%= f.input :status, label: "Status",
+              label: false,
+              class: "form-control form-select",
+              collection: @statuss,
+              prompt: "Filtre por Status"
             %>
           </div>
 
           <div class="mb-3">
-            <%= label_tag :programa, "Programa", class: "form-label" %>
-            <%= select_tag :programa,
-              options_for_select(@programas),
-              include_blank: true,
-              class: "form-control form-select"
+            <%= f.input :programa, label: "Programa",
+              label: false,
+              class: "form-control form-select",
+              collection: @programas,
+              prompt: "Filtre por Programa"
             %>
           </div>
 
           <div class="mb-3">
-            <%= label_tag :client_name, "Clientes", class: "form-label" %>
-            <%= select_tag :client_name,
-              options_for_select(@clients_name),
-              include_blank: true,
-              class: "form-control form-select"
+            <%= f.input :client_name, label: "Clientes",
+              label: false,
+              class: "form-control form-select",
+              collection: @clients_name,
+              prompt: "Filtre por Cliente"
             %>
           </div>
 
           <div class="mb-3">
-            <%= label_tag :client_city, "Cidades", class: "form-label" %>
-            <%= select_tag :client_city,
-              options_for_select(@clients_city),
-              include_blank: true,
-              class: "form-control form-select"
+            <%= f.input :client_city, label: "Cidades",
+              label: false,
+              class: "form-control form-select",
+              collection: @clients_city,
+              prompt: "Filtre por Cidade"
             %>
           </div>
 
           <div class="mb-3">
-            <%= label_tag :client_state, "Estados", class: "form-label" %>
-            <%= select_tag :client_state,
-              options_for_select(@clients_state),
-              include_blank: true,
-              class: "form-control form-select"
+            <%= f.input :client_state,
+              label: false,
+              class: "form-control form-select",
+              collection: @clients_state,
+              prompt: "Filtre por Estado"
             %>
           </div>
 
           <div class="mb-3">
-            <%= label_tag :matriz, "Matriz", class: "form-label" %>
-            <%= select_tag :matriz,
-              options_for_select(@matrizes),
-              include_blank: true,
-              class: "form-control form-select"
+            <%= f.input :matriz,
+              label: false,
+              class: "form-control form-select",
+              collection: @matrizes,
+              prompt: "Filtre por Matriz"
             %>
           </div>
 
           <div class="mb-3">
-            <%= label_tag :area_analitica, "Área Analítica", class: "form-label" %>
-            <%= select_tag :area_analitica,
-              options_for_select(@areas_analiticas),
-              include_blank: true,
-              class: "form-control form-select"
+            <%= f.input :area_analitica,
+              label: false,
+              class: "form-control form-select",
+              collection: @areas_analiticas,
+              prompt: "Filtre por Área Analítica"
             %>
           </div>
 
           <div class="mb-3">
-            <%= label_tag :rg, "RG", class: "form-label" %>
-            <%= select_tag :rg,
-              options_for_select(@rgs),
-              include_blank: true,
-              class: "form-control form-select"
+            <%= f.input :rg,
+              label: false,
+              class: "form-control",
+              placeholder: "Filtre por RG"
             %>
           </div>
 
           <div class="mb-3">
-            <%= label_tag :codigo_rejeicao, "Códigos de Rejeição", class: "form-label" %>
-            <%= select_tag :codigo_rejeicao,
-              options_for_select(@codigos_rejeicoes),
-              include_blank: true,
-              class: "form-control form-select"
+            <%= f.input :codigo_rejeicao,
+              label: false,
+              class: "form-control form-select",
+              collection: @codigos_rejeicoes,
+              prompt: "Filtre por Código de Rejeição"
             %>
           </div>
 
-          <div class="mb-3">
-            <%= label_tag :date, "date", class: "form-label" %>
-            <%= date_field_tag :date,
-              include_blank: true,
-              class: "datepicker"
-              # class: "form-control form-select"
-            %>
+        <div class="mb-3">
+          <%= f.label "Intervalo das datas de Recepção" %>
+          <div class="form-inline">
+            <%= f.input :start_time_recepcao, as: :string, label:false, placeholder: "Data de Início", required: false, input_html: {class: "datepicker"} %>
+            <%= f.input :end_time_recepcao, as: :string, label: false, placeholder: "Data Final", required: false, input_html: {class: "datepicker"} %>
           </div>
+        </div>
 
-          <div class="br-datetimepicker" data-mode="range" data-type="text">
-            <div class="br-input has-icon">
-              <label for="range-input">DateTimePicker com intervalo de datas</label>
-              <input class="form-control" id="range-input" type="text" placeholder="dd/mm/aaaa até dd/mm/aaaa" data-input="true"/>
-              <button class="br-button circle small" type="button" aria-label="Abrir Timepicker" data-toggle="data-toggle" id="range-input-btn"><i class="fas fa-calendar-alt" aria-hidden="true"></i>
-              </button>
-            </div>
+        <div class="mb-3">
+          <%= f.label "Intervalo das datas de Liberação" %>
+          <div class="form-inline">
+            <%= f.input :start_time_liberacao, as: :string, label:false, placeholder: "Data de Início", required: false, input_html: {class: "datepicker"} %>
+            <%= f.input :end_time_liberacao, as: :string, label: false, placeholder: "Data Final", required: false, input_html: {class: "datepicker"} %>
           </div>
+        </div>
 
-          <div class="mb-3">
-            <%= submit_tag "Buscar", class: "br-button secondary mt-3 mt-sm-0 ml-sm-3" %>
+          <div class="form-actions">
+            <%= f.button :submit, "Buscar", class: "br-button secondary mt-3 mt-sm-0 ml-sm-3" %>
           </div>
 
         <% end %>
-      </div>
     </div>
   </div>
 </div>
