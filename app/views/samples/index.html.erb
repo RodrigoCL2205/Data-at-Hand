@@ -1,6 +1,10 @@
 <h2>Resultado da Busca</h2>
 <p>Foram encontradas <strong><%= @samples.count %></strong> amostras.</p>
+
+ <%# = paginate @samples %>
+
 <div id="table">
+
 <table class="table table-hover">
     <thead class="thead-dark">
       <tr>
@@ -61,4 +65,5 @@
     <% end %>
     </tbody>
   </table>
-  </div>
+
+  <%# = paginate @samples %>

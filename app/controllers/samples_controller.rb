@@ -26,7 +26,7 @@ before_action :tabela_mic, only: :twelve
     @samples = Sample.all
     @clients = Client.all
     @rejections = Rejection.all
-
+    # @samples = Sample.page(params[:page])
     # Será utilizado para verificar quais tabelas serão mostradas ao usuário
     @show = {
       status: false,
