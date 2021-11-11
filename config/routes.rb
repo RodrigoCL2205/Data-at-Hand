@@ -11,7 +11,8 @@ Rails.application.routes.draw do
     mount Blazer::Engine, at: "blazer"
   end
 
-  resources :samples, only: [:index] do
+
+  resources :samples, only: [:index, :show] do
     collection do
       get :query
     end

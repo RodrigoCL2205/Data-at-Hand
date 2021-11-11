@@ -4,6 +4,7 @@ before_action :tabela_mic, only: :twelve
 before_action :import_names, only: :query
 before_action :siglas, only: :index
 
+
   # funcao que vai chamar o indicador 12
   def twelve
     @mic = {}
@@ -63,11 +64,19 @@ before_action :siglas, only: :index
     @samples = @samples.page(params[:page])
   end
 
+
+  def show; 
+  end
+
   # selecionar opcoes para a busca personalizada
   def query
   end
 
   private
+
+  def find
+    @sample = Sample.find(params[:id])
+  end
 
   # converte os dados de params em start_time e end_time
   def time_params
