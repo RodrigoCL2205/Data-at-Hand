@@ -8,14 +8,13 @@
 <table class="table table-hover">
     <thead class="thead-dark">
       <tr>
+
       <th>RG</th>
       <th>Cidade</th>
       <th>Estado</th>
       <th>Data de Recepção</th>
       <th>Programa</th>
       <th>Matriz</th>
-
-
       <th>Área Analítica</th>
       <th>Objetivo da Amostra</th>
       <th>Liberada?</th>
@@ -35,9 +34,6 @@
         <td><%= sample.data_recepcao.strftime('%d/%m/%Y') %></td>
         <td><%= sample.programa %></td>
         <td><%= sample.matriz.capitalize %></td>
-
-
-
         <td><%= sample.area_analitica %></td>
         <td><%= sample.objetivo_amostra.capitalize %></td>
         <td>

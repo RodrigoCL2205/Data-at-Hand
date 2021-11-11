@@ -1,6 +1,8 @@
 class SamplesController < ApplicationController
 before_action :time_params, only: :twelve
 before_action :tabela_mic, only: :twelve
+before_action :import_names, only: :query
+before_action :siglas, only: :index
 
   # funcao que vai chamar o indicador 12
   def twelve
@@ -24,15 +26,10 @@ before_action :tabela_mic, only: :twelve
 
   # exibir resultados da busca personalizada
   def index
-    # @samples = Sample.page(params[:page])
-
-    # @clients = Client.all
     @rejections = Rejection.all
-    #
-    # Será utilizado para verificar quais tabelas serão mostradas ao usuário
-    # parametros tabela samples
+    # Será utilizado para verificar quais tabelas serão mostradas ao usuário parametros tabela samples
     search_fields = [
-      ['status', 'samples'], # alterar status para: finalizada, aguardando ou rejeitada
+      ['status', 'samples'], 
       ['programa', 'samples'],
       ['matriz', 'samples'],
       ['area_analitica', 'samples'],
@@ -44,8 +41,6 @@ before_action :tabela_mic, only: :twelve
     ]
     @samples = Sample.all
     segment = Sample.where('matriz'.to_sym =>'CARNE')
-    # @samples = Sample.all
-    # raise
     search_fields.each do |item|
       if item[1] == 'client'
         value = "client_#{item[0]}".to_sym
@@ -56,13 +51,10 @@ before_action :tabela_mic, only: :twelve
         case item[1]
         when 'samples'
           @samples = @samples.where(item[0].to_sym => params[:query][item[0]])
-          # query = "#{item[0]} ILIKE #{params[item[0].to_sym]}"
-          # raise
         when 'client'
           @samples = @samples.includes(:client).where("clients.#{item[0]}".to_sym => params[:query]["client_#{item[0]}"])
         when 'rejection_reasons'
           @samples = @samples.includes(:rejection_reasons).where("rejection_reasons.codigo".to_sym => params[:query][:codigo_rejeicao]).references(:rejection_reasons)
-        # when 'status'
         end
 
       end
@@ -73,7 +65,6 @@ before_action :tabela_mic, only: :twelve
 
   # selecionar opcoes para a busca personalizada
   def query
-    import_names
   end
 
   private
@@ -185,5 +176,46 @@ before_action :tabela_mic, only: :twelve
     @areas_analiticas = Sample.all.order('area_analitica ASC').distinct.pluck(:area_analitica)
     @rgs = Sample.all.order('rg ASC').distinct.pluck(:rg)
     @codigos_rejeicoes = RejectionReason.all.order('codigo ASC').distinct.pluck(:codigo)
+  end
+
+  def siglas
+    @sigla_programas = [
+      ["Requisitos Complementares IN 60/2018", "Atendimento ao Consolidado de requisitos complementares à exportação aos Estados Unidos e à IN º 60/2018."],
+      ["PACPOA", "PACPOA - Programa de Avaliação de Conformidade de Produtos de Origem Animal"],
+      ["PNCRC","PROGRAMA NACIONAL DE CONTROLE DE RESÍDUOS E CONTAMINANTES - ÁREA ANIMAL"],
+      ["PNCP E. coli", "Programa de Controle STEC (IN 60/2018)"],
+      ["PNCP Listeria", "Programa de Controle de Listeria Monocytogenes (IN 09/2009)"],
+      ["PNCP Salmonella", "Programa de Redução de Patógenos em Aves (IN 20/2016)"]
+    ]
+
+    @uf = [
+      ["AC","Acre"],
+      ["AL","Alagoas"],
+      ["AP","Amapá"],
+      ["AM","Amazonas"],
+      ["BA","Bahia"],
+      ["CE","Ceará"],
+      ["DF","Distrito Federal"],
+      ["ES","Espírito Santo"],
+      ["GO","Goiás"],
+      ["MA","Maranhão"],
+      ["MT","Mato Grosso"],
+      ["MS","Mato Grosso do Sul"],
+      ["MG","Minas Gerais"],
+      ["PR","Paraná"],
+      ["PB","Paraíba"],
+      ["PA","Pará"],
+      ["PE","Pernambuco"],
+      ["PI","Piauí"],
+      ["RN","Rio Grande do Norte"],
+      ["RS","Rio Grande do Sul"],
+      ["RJ","Rio de Janeiro"],
+      ["RO","Rondônia"],
+      ["RR","Roraima"],
+      ["SC","Santa Catarina"],
+      ["SE","Sergipe"],
+      ["SP","São Paulo"],
+      ["TO","Tocantins"]
+    ]
   end
 end
