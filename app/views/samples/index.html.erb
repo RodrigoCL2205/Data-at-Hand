@@ -1,7 +1,7 @@
 <h2>Resultado da Busca</h2>
-<p>Foram encontradas <strong><%= @samples.count %></strong> amostras.</p>
+<p>Foram encontradas <strong><%= @quantidade %></strong> amostras.</p>
 
- <%# = paginate @samples %>
+ <%= paginate @samples %>
 
 <div id="table">
 
@@ -9,15 +9,9 @@
     <thead class="thead-dark">
       <tr>
       <th>Número da Amostra</th>
-      <% if (@show[:client_name] == true) || (@show[:client_city] == true) || (@show[:client_state] == true) %>
         <th>Cliente</th>
-      <% end %>
-      <% if (@show[:client_name] == true) || (@show[:client_city] == true) || (@show[:client_state] == true) %>
         <th>Cidade</th>
-      <% end %>
-      <% if (@show[:client_name] == true) || (@show[:client_city] == true) || (@show[:client_state] == true) %>
         <th>Estado</th>
-      <% end %>
       <th>Data de Recepção</th>
       <th>Programa</th>
       <th>Matriz</th>
@@ -38,15 +32,9 @@
     <% @samples.each do |sample| %>
       <tr>
         <td><%= sample.sample_number %></td>
-        <% if (@show[:client_name] == true) || (@show[:client_city] == true) || (@show[:client_state] == true) %>
           <td><%= sample.client.name %></td>
-        <% end %>
-        <% if (@show[:client_name] == true) || (@show[:client_city] == true) || (@show[:client_state] == true) %>
           <td><%= sample.client.city %></td>
-        <% end %>
-        <% if (@show[:client_name] == true) || (@show[:client_city] == true) || (@show[:client_state] == true) %>
           <td><%= sample.client.state %></td>
-        <% end %>
         <td><%= sample.data_recepcao.strftime('%d/%m/%Y') %></td>
         <td><%= sample.programa %></td>
         <td><%= sample.matriz %></td>
@@ -66,4 +54,4 @@
     </tbody>
   </table>
 
-  <%# = paginate @samples %>
+  <%= paginate @samples %>
