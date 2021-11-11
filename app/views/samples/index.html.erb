@@ -36,7 +36,7 @@
     </thead>
     <tbody id="tbody">
     <% @samples.each do |sample| %>
-      <tr>
+      <tr onclick="location.href='<%= sample_path(sample) %>'">
         <td><%= sample.sample_number %></td>
         <% if (@show[:client_name] == true) || (@show[:client_city] == true) || (@show[:client_state] == true) %>
           <td><%= sample.client.name %></td>

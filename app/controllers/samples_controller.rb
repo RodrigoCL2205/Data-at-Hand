@@ -1,6 +1,7 @@
 class SamplesController < ApplicationController
-before_action :time_params, only: :twelve
-before_action :tabela_mic, only: :twelve
+  before_action :time_params, only: :twelve
+  before_action :tabela_mic, only: :twelve
+  before_action :find, only: :show
 
   # funcao que vai chamar o indicador 12
   def twelve
@@ -95,11 +96,17 @@ before_action :tabela_mic, only: :twelve
     end
   end
 
+  def show; end
+
   def query
     import_names
   end
 
   private
+
+  def find
+    @sample = Sample.find(params[:id])
+  end
 
   # converte os dados de params em start_time e end_time
   def time_params
