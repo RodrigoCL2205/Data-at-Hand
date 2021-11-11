@@ -27,7 +27,7 @@
     </thead>
     <tbody id="tbody">
     <% @samples.each do |sample| %>
-      <tr>
+      <tr onclick="location.href='<%= sample_path(sample) %>'">
         <td><%= sample.rg %></td>
         <td><%= sample.client.city %></td>
         <td><%= sample.client.state %></td>
