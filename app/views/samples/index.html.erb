@@ -1,14 +1,23 @@
-<div class="container">
-  <br>
-  <p>Exibindo <strong><%= Sample.count %></strong> registros</p>
-  <%= paginate @samples %>
-</div>
+<h2>Resultado da Busca</h2>
+<p>Foram encontradas <strong><%= @samples.count %></strong> amostras.</p>
+
+ <%# = paginate @samples %>
+
+<div id="table">
 
 <table class="table table-hover">
     <thead class="thead-dark">
       <tr>
       <th>Número da Amostra</th>
-      <th>Cliente</th>
+      <% if (@show[:client_name] == true) || (@show[:client_city] == true) || (@show[:client_state] == true) %>
+        <th>Cliente</th>
+      <% end %>
+      <% if (@show[:client_name] == true) || (@show[:client_city] == true) || (@show[:client_state] == true) %>
+        <th>Cidade</th>
+      <% end %>
+      <% if (@show[:client_name] == true) || (@show[:client_city] == true) || (@show[:client_state] == true) %>
+        <th>Estado</th>
+      <% end %>
       <th>Data de Recepção</th>
       <th>Programa</th>
       <th>Matriz</th>
@@ -19,17 +28,25 @@
       <th>Objetivo da Amostra</th>
       <th>Liberada?</th>
       <th>Data de Liberação</th>
-      <th>Latente?</th>
       <th>Status</th>
+      <th>Latente?</th>
       <th>Descartada?</th>
       <th>Data de Descarte</th>
     </tr>
     </thead>
-
-    <% @samples.limit(100).each do |sample| %>
+    <tbody id="tbody">
+    <% @samples.each do |sample| %>
       <tr>
         <td><%= sample.sample_number %></td>
-        <td><%= sample.client.name %></td>
+        <% if (@show[:client_name] == true) || (@show[:client_city] == true) || (@show[:client_state] == true) %>
+          <td><%= sample.client.name %></td>
+        <% end %>
+        <% if (@show[:client_name] == true) || (@show[:client_city] == true) || (@show[:client_state] == true) %>
+          <td><%= sample.client.city %></td>
+        <% end %>
+        <% if (@show[:client_name] == true) || (@show[:client_city] == true) || (@show[:client_state] == true) %>
+          <td><%= sample.client.state %></td>
+        <% end %>
         <td><%= sample.data_recepcao.strftime('%d/%m/%Y') %></td>
         <td><%= sample.programa %></td>
         <td><%= sample.matriz %></td>
@@ -40,15 +57,13 @@
         <td><%= sample.objetivo_amostra %></td>
         <td><%= sample.liberada %></td>
         <td><%= sample.data_liberacao.strftime('%d/%m/%Y') unless sample.data_liberacao.nil? %></td>
-        <td><%= sample.latente %></td>
         <td><%= sample.status %></td>
+        <td><%= sample.latente %></td>
         <td><%= sample.descartada %></td>
         <td><%= sample.data_descarte.strftime('%d/%m/%Y') unless sample.data_descarte.nil? %></td>
       </tr>
     <% end %>
-
+    </tbody>
   </table>
 
-<div class="container">
-  <%= paginate @samples %>
-</div>
+  <%# = paginate @samples %>

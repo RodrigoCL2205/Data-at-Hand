@@ -1,8 +1,114 @@
-<%= form_tag samples_path, method: :get do %>
-  <%= text_field_tag :programa,
-    params[:programa],
-    class: "form-control",
-    placeholder: "Programa"
-  %>
-  <%= submit_tag "Search", class: "btn btn-primary" %>
-<% end %>
+<div class="container">
+  <div class="row justify-content-center m-3">
+    <div class="col-12 col-sm-8">
+      <div class="w-200">
+        <%= form_tag samples_path, method: :get do %>
+
+          <div class="mb-3">
+            <%= label_tag :status, "Status", class: "form-label" %>
+            <%= select_tag :status,
+              options_for_select(@statuss),
+              include_blank: true,
+              class: "form-control form-select"
+            %>
+          </div>
+
+          <div class="mb-3">
+            <%= label_tag :programa, "Programa", class: "form-label" %>
+            <%= select_tag :programa,
+              options_for_select(@programas),
+              include_blank: true,
+              class: "form-control form-select"
+            %>
+          </div>
+
+          <div class="mb-3">
+            <%= label_tag :client_name, "Clientes", class: "form-label" %>
+            <%= select_tag :client_name,
+              options_for_select(@clients_name),
+              include_blank: true,
+              class: "form-control form-select"
+            %>
+          </div>
+
+          <div class="mb-3">
+            <%= label_tag :client_city, "Cidades", class: "form-label" %>
+            <%= select_tag :client_city,
+              options_for_select(@clients_city),
+              include_blank: true,
+              class: "form-control form-select"
+            %>
+          </div>
+
+          <div class="mb-3">
+            <%= label_tag :client_state, "Estados", class: "form-label" %>
+            <%= select_tag :client_state,
+              options_for_select(@clients_state),
+              include_blank: true,
+              class: "form-control form-select"
+            %>
+          </div>
+
+          <div class="mb-3">
+            <%= label_tag :matriz, "Matriz", class: "form-label" %>
+            <%= select_tag :matriz,
+              options_for_select(@matrizes),
+              include_blank: true,
+              class: "form-control form-select"
+            %>
+          </div>
+
+          <div class="mb-3">
+            <%= label_tag :area_analitica, "Área Analítica", class: "form-label" %>
+            <%= select_tag :area_analitica,
+              options_for_select(@areas_analiticas),
+              include_blank: true,
+              class: "form-control form-select"
+            %>
+          </div>
+
+          <div class="mb-3">
+            <%= label_tag :rg, "RG", class: "form-label" %>
+            <%= select_tag :rg,
+              options_for_select(@rgs),
+              include_blank: true,
+              class: "form-control form-select"
+            %>
+          </div>
+
+          <div class="mb-3">
+            <%= label_tag :codigo_rejeicao, "Códigos de Rejeição", class: "form-label" %>
+            <%= select_tag :codigo_rejeicao,
+              options_for_select(@codigos_rejeicoes),
+              include_blank: true,
+              class: "form-control form-select"
+            %>
+          </div>
+
+          <div class="mb-3">
+            <%= label_tag :date, "date", class: "form-label" %>
+            <%= date_field_tag :date,
+              include_blank: true,
+              class: "datepicker"
+              # class: "form-control form-select"
+            %>
+          </div>
+
+          <div class="br-datetimepicker" data-mode="range" data-type="text">
+            <div class="br-input has-icon">
+              <label for="range-input">DateTimePicker com intervalo de datas</label>
+              <input class="form-control" id="range-input" type="text" placeholder="dd/mm/aaaa até dd/mm/aaaa" data-input="true"/>
+              <button class="br-button circle small" type="button" aria-label="Abrir Timepicker" data-toggle="data-toggle" id="range-input-btn"><i class="fas fa-calendar-alt" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <%= submit_tag "Buscar", class: "br-button secondary mt-3 mt-sm-0 ml-sm-3" %>
+          </div>
+
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
