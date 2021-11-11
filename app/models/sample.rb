@@ -1,4 +1,6 @@
 class Sample < ApplicationRecord
+  paginates_per 50
+
   belongs_to :client
   has_many :rejections
   has_many :rejection_reasons, through: :rejections

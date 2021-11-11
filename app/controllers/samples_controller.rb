@@ -23,10 +23,11 @@ before_action :tabela_mic, only: :twelve
   end
 
   def index
-    @samples = Sample.all
-      if params[:programa].present?
-        raise
-      end
+    # @samples = Sample.all
+    @samples = Sample.page(params[:page])
+    # if params[:programa].present?
+    #  raise
+    # end
 
   end
 
