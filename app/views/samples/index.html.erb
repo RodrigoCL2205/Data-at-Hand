@@ -9,9 +9,9 @@
     <thead class="thead-dark">
       <tr>
       <th>Número da Amostra</th>
-        <th>Cliente</th>
-        <th>Cidade</th>
-        <th>Estado</th>
+      <th>Cliente</th>
+      <th>Cidade</th>
+      <th>Estado</th>
       <th>Data de Recepção</th>
       <th>Programa</th>
       <th>Matriz</th>
@@ -32,11 +32,11 @@
     <% @samples.each do |sample| %>
       <tr>
         <td><%= sample.sample_number %></td>
-          <td><%= sample.client.name %></td>
-          <td><%= sample.client.city %></td>
-          <td><%= sample.client.state %></td>
+        <td><%= sample.client.name %></td>
+        <td><%= sample.client.city %></td>
+        <td><%= @uf[sample.client.state] %></td>
         <td><%= sample.data_recepcao.strftime('%d/%m/%Y') %></td>
-        <td><%= sample.programa %></td>
+        <td><%= @siglas_programas[sample.programa] %></td>
         <td><%= sample.matriz %></td>
         <td><%= sample.subgrupo %></td>
         <td><%= sample.produto %></td>
