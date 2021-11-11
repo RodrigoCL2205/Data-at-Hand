@@ -22,79 +22,55 @@ before_action :tabela_mic, only: :twelve
   def thirty
   end
 
+  # exibir resultados da busca personalizada
   def index
-    @samples = Sample.all
-    @clients = Client.all
-    @rejections = Rejection.all
     # @samples = Sample.page(params[:page])
+    
+    # @clients = Client.all
+    @rejections = Rejection.all
+    # 
     # Será utilizado para verificar quais tabelas serão mostradas ao usuário
-    @show = {
-      status: false,
-      programa: false,
-      matriz: false,
-      area_analitica: false,
-      client_name: false,
-      client_city: false,
-      client_state: false,
-      codigo_rejeicao: false
-    }
-
-    if params[:status].present?
-      @samples = @samples.collect { |sample| sample if sample.status == params[:status] }.compact
-      @show[:status] = true
-
-    end
-
-    if params[:programa].present?
-      @samples = @samples.collect { |sample| sample if sample.programa == params[:programa] }.compact
-      @show[:programa] = true
-    end
-
-    if params[:matriz].present?
-      @samples = @samples.collect { |sample| sample if sample.matriz == params[:matriz] }.compact
-      @show[:matriz] = true
-    end
-
-    if params[:area_analitica].present?
-      @samples = @samples.collect { |sample| sample if sample.area_analitica == params[:area_analitica] }.compact
-      @show[:area_analitica] = true
-    end
-
-    if params[:rg].present?
-      @samples = @samples.collect { |sample| sample if sample.rg == params[:rg] }.compact
-      @show[:rg] = true
-    end
-
-    if params[:client_name].present?
-      @client = @clients.collect { |client| client if client.name == params[:client_name] }.compact.first
-      @samples = @samples.collect { |sample| sample if sample.client == @client }.compact
-      @show[:client_name] = true
-    end
-
-    if params[:client_city].present?
-      @clients = @clients.collect { |client| client if client.city == params[:client_city] }.compact
-      @samples = @samples.collect { |sample| sample if @clients.include?(sample.client) }.compact
-      @show[:client_city] = true
-    end
-
-    if params[:client_state].present?
-      @clients = @clients.collect { |client| client if client.state == params[:client_state] }.compact
-      @samples = @samples.collect { |sample| sample if @clients.include?(sample.client) }.compact
-      @show[:client_state] = true
-    end
-
-    if params[:codigo_rejeicao].present?
-      @rejections = @rejections.collect do |rejection|
-        rejection if rejection.rejection_reason.codigo == params[:codigo_rejeicao]
+    # parametros tabela samples
+    search_fields = [
+      ['status', 'samples'], # alterar status para: finalizada, aguardando ou rejeitada
+      ['programa', 'samples'],
+      ['matriz', 'samples'],
+      ['area_analitica', 'samples'],
+      ['rg', 'samples'],
+      ['name', 'client'],
+      ['city', 'client'],
+      ['state', 'client'],
+      ['codigo_rejeicao', 'rejection_reasons']
+    ]
+    @samples = Sample.all
+    segment = Sample.where('matriz'.to_sym =>'CARNE')
+    # @samples = Sample.all
+    # raise
+    search_fields.each do |item|
+      if item[1] == 'client'
+        value = "client_#{item[0]}".to_sym
+      else
+        value = item[0].to_sym
       end
-      @rejections = @rejections.compact
-      samples_in_rejections = []
-      @rejections.each { |rejection| samples_in_rejections << rejection.sample }.uniq
-      @samples = @samples.collect { |sample| sample if samples_in_rejections.include?(sample) }.compact
-      @show[:codigo_rejeicao] = true
+      if params[value].present?
+        case item[1]
+        when 'samples'
+          @samples = @samples.where(item[0].to_sym => params[item[0]])
+          # query = "#{item[0]} ILIKE #{params[item[0].to_sym]}"
+          # raise
+        when 'client'
+          @samples = @samples.includes(:client).where("clients.#{item[0]}".to_sym => params["client_#{item[0]}"])
+        when 'rejection_reasons'
+          @samples = @samples.includes(:rejection_reasons).where("rejection_reasons.codigo".to_sym => params[:codigo_rejeicao]).references(:rejection_reasons)
+        # when 'status'
+        end
+      end
     end
+    @quantidade = @samples.count
+    @samples = @samples.page(params[:page])
   end
 
+  # selecionar opcoes para a busca personalizada
   def query
     import_names
   end
