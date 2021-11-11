@@ -11,8 +11,7 @@ before_action :tabela_mic, only: :twelve
 
   # funcao que pede a data o periodo para inserir no indicador 12
   def ask_time
-    twelve
-    # raise
+    # twelve
   end
 
   # funcao que vai chamar o indicador 02
@@ -23,13 +22,94 @@ before_action :tabela_mic, only: :twelve
   def thirty
   end
 
+  def index
+    @samples = Sample.all
+    @clients = Client.all
+    @rejections = Rejection.all
+    # @samples = Sample.page(params[:page])
+    # Será utilizado para verificar quais tabelas serão mostradas ao usuário
+    @show = {
+      status: false,
+      programa: false,
+      matriz: false,
+      area_analitica: false,
+      client_name: false,
+      client_city: false,
+      client_state: false,
+      codigo_rejeicao: false
+    }
+
+    if params[:status].present?
+      @samples = @samples.collect { |sample| sample if sample.status == params[:status] }.compact
+      @show[:status] = true
+
+    end
+
+    if params[:programa].present?
+      @samples = @samples.collect { |sample| sample if sample.programa == params[:programa] }.compact
+      @show[:programa] = true
+    end
+
+    if params[:matriz].present?
+      @samples = @samples.collect { |sample| sample if sample.matriz == params[:matriz] }.compact
+      @show[:matriz] = true
+    end
+
+    if params[:area_analitica].present?
+      @samples = @samples.collect { |sample| sample if sample.area_analitica == params[:area_analitica] }.compact
+      @show[:area_analitica] = true
+    end
+
+    if params[:rg].present?
+      @samples = @samples.collect { |sample| sample if sample.rg == params[:rg] }.compact
+      @show[:rg] = true
+    end
+
+    if params[:client_name].present?
+      @client = @clients.collect { |client| client if client.name == params[:client_name] }.compact.first
+      @samples = @samples.collect { |sample| sample if sample.client == @client }.compact
+      @show[:client_name] = true
+    end
+
+    if params[:client_city].present?
+      @clients = @clients.collect { |client| client if client.city == params[:client_city] }.compact
+      @samples = @samples.collect { |sample| sample if @clients.include?(sample.client) }.compact
+      @show[:client_city] = true
+    end
+
+    if params[:client_state].present?
+      @clients = @clients.collect { |client| client if client.state == params[:client_state] }.compact
+      @samples = @samples.collect { |sample| sample if @clients.include?(sample.client) }.compact
+      @show[:client_state] = true
+    end
+
+    if params[:codigo_rejeicao].present?
+      @rejections = @rejections.collect do |rejection|
+        rejection if rejection.rejection_reason.codigo == params[:codigo_rejeicao]
+      end
+      @rejections = @rejections.compact
+      samples_in_rejections = []
+      @rejections.each { |rejection| samples_in_rejections << rejection.sample }.uniq
+      @samples = @samples.collect { |sample| sample if samples_in_rejections.include?(sample) }.compact
+      @show[:codigo_rejeicao] = true
+    end
+  end
+
+  def query
+    import_names
+  end
+
   private
 
   # converte os dados de params em start_time e end_time
   def time_params
-    if params['start_time(1i)'].present?
-      @start_time = Date.new("#{params["start_time(1i)"]}".to_i,"#{params["start_time(2i)"]}".to_i,"#{params["start_time(3i)"]}".to_i)
-      @end_time = Date.new("#{params["end_time(1i)"]}".to_i,"#{params["end_time(2i)"]}".to_i,"#{params["end_time(3i)"]}".to_i)
+    if params[:twelve].present?
+      #@start_time = Date.new("#{params["start_time(1i)"]}".to_i,"#{params["start_time(2i)"]}".to_i,"#{params["start_time(3i)"]}".to_i)
+      #@end_time = Date.new("#{params["end_time(1i)"]}".to_i,"#{params["end_time(2i)"]}".to_i,"#{params["end_time(3i)"]}".to_i)
+      #params.require(:twelve).permit(:start_time, :end_time)
+      @start_time = params[:twelve][:start_time].to_date
+      @end_time = params[:twelve][:end_time].to_date
+
     else
       @start_time = Date.new(Time.now.year,1,1)
       @end_time = Date.new(Time.now.year,12,31)
@@ -109,5 +189,24 @@ before_action :tabela_mic, only: :twelve
       ['bebidas', 'Bebidas não alcoólicas'],
       ['total', 'Total']
     ]
+  end
+
+  # def sample_params
+  #   params.require(:sample).permit(:client_id, :sample_number, :programa,
+  #      :matriz, :subgrupo, :produto, :rg, :area_analitica, :objetivo_amostra,
+  #      :liberada, :latente, :descartada, :status, :data_recepcao,
+  #      :data_liberacao, :data_descarte)
+  # end
+
+  def import_names
+    @statuss = Sample.all.distinct.pluck(:status)
+    @programas = Sample.all.order('programa ASC').distinct.pluck(:programa)
+    @clients_name = Sample.all.distinct.pluck(:client_id).collect { |client_id| Client.find(client_id).name }.sort.uniq
+    @clients_city = Sample.all.distinct.pluck(:client_id).collect { |client_id| Client.find(client_id).city }.sort.uniq
+    @clients_state = Sample.all.distinct.pluck(:client_id).collect { |client_id| Client.find(client_id).state }.sort.uniq
+    @matrizes = Sample.all.order('matriz ASC').distinct.pluck(:matriz)
+    @areas_analiticas = Sample.all.order('area_analitica ASC').distinct.pluck(:area_analitica)
+    @rgs = Sample.all.order('rg ASC').distinct.pluck(:rg)
+    @codigos_rejeicoes = RejectionReason.all.order('codigo ASC').distinct.pluck(:codigo)
   end
 end

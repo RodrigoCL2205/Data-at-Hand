@@ -7,9 +7,17 @@ Rails.application.routes.draw do
   get '/indicadores/02', to: 'samples#two'
   get '/indicadores/30', to: 'samples#thirty'
 
+<<<<<<< HEAD
   authenticate :user, ->(user) { user.admin? } do
     mount Blazer::Engine, at: "blazer"
   end
 
+=======
+  resources :samples, only: [:index] do
+    collection do
+      get :query
+    end
+  end
+>>>>>>> a85c21d6843dbaadefd1afd7e05e5bfbbb6d9bcc
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

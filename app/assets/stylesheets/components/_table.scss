@@ -1,0 +1,19 @@
+#table {
+  width: 100%;
+  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: auto;
+}
+
+#table tr {
+  height: 1em;
+}
+
+#table td {
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+#tbody {
+  overflow: hidden;
+}
