@@ -39,51 +39,51 @@ before_action :tabela_mic, only: :twelve
       codigo_rejeicao: false
     }
 
-    if params[:status].present?
+    if params[:query][:status].present?
       @samples = @samples.collect { |sample| sample if sample.status == params[:status] }.compact
       @show[:status] = true
-
+      raise
     end
 
-    if params[:programa].present?
+    if params[:query][:programa].present?
       @samples = @samples.collect { |sample| sample if sample.programa == params[:programa] }.compact
       @show[:programa] = true
     end
 
-    if params[:matriz].present?
+    if params[:query][:matriz].present?
       @samples = @samples.collect { |sample| sample if sample.matriz == params[:matriz] }.compact
       @show[:matriz] = true
     end
 
-    if params[:area_analitica].present?
+    if params[:query][:area_analitica].present?
       @samples = @samples.collect { |sample| sample if sample.area_analitica == params[:area_analitica] }.compact
       @show[:area_analitica] = true
     end
 
-    if params[:rg].present?
+    if params[:query][:rg].present?
       @samples = @samples.collect { |sample| sample if sample.rg == params[:rg] }.compact
       @show[:rg] = true
     end
 
-    if params[:client_name].present?
+    if params[:query][:client_name].present?
       @client = @clients.collect { |client| client if client.name == params[:client_name] }.compact.first
       @samples = @samples.collect { |sample| sample if sample.client == @client }.compact
       @show[:client_name] = true
     end
 
-    if params[:client_city].present?
+    if params[:query][:client_city].present?
       @clients = @clients.collect { |client| client if client.city == params[:client_city] }.compact
       @samples = @samples.collect { |sample| sample if @clients.include?(sample.client) }.compact
       @show[:client_city] = true
     end
 
-    if params[:client_state].present?
+    if params[:query][:client_state].present?
       @clients = @clients.collect { |client| client if client.state == params[:client_state] }.compact
       @samples = @samples.collect { |sample| sample if @clients.include?(sample.client) }.compact
       @show[:client_state] = true
     end
 
-    if params[:codigo_rejeicao].present?
+    if params[:query][:codigo_rejeicao].present?
       @rejections = @rejections.collect do |rejection|
         rejection if rejection.rejection_reason.codigo == params[:codigo_rejeicao]
       end
