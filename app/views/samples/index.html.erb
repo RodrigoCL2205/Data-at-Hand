@@ -8,7 +8,6 @@
 <table class="table table-hover">
     <thead class="thead-dark">
       <tr>
-
       <th>RG</th>
       <th>Cidade</th>
       <th>Estado</th>
@@ -20,13 +19,10 @@
       <th>Liberada?</th>
       <th>Data de Liberação</th>
       <th>Status</th>
-
-
-
     </tr>
     </thead>
-    <tbody id="tbody">
-    <% @samples.each do |sample| %>
+
+    <% @samples.limit(100).each do |sample| %>
       <tr>
         <td><%= sample.rg %></td>
         <td><%= sample.client.city %></td>
@@ -43,12 +39,9 @@
           </td>
         <td><%= sample.data_liberacao.strftime('%d/%m/%Y') unless sample.data_liberacao.nil? %></td>
         <td><%= sample.status %></td>
-
-
-
       </tr>
     <% end %>
-    </tbody>
+
   </table>
 
   <%= paginate @samples %>
