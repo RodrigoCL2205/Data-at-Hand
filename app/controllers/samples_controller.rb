@@ -25,10 +25,10 @@ before_action :tabela_mic, only: :twelve
   # exibir resultados da busca personalizada
   def index
     # @samples = Sample.page(params[:page])
-    
+
     # @clients = Client.all
     @rejections = Rejection.all
-    # 
+    #
     # Será utilizado para verificar quais tabelas serão mostradas ao usuário
     # parametros tabela samples
     search_fields = [
@@ -52,18 +52,19 @@ before_action :tabela_mic, only: :twelve
       else
         value = item[0].to_sym
       end
-      if params[value].present?
+      if params[:query][value].present?
         case item[1]
         when 'samples'
-          @samples = @samples.where(item[0].to_sym => params[item[0]])
+          @samples = @samples.where(item[0].to_sym => params[:query][item[0]])
           # query = "#{item[0]} ILIKE #{params[item[0].to_sym]}"
           # raise
         when 'client'
-          @samples = @samples.includes(:client).where("clients.#{item[0]}".to_sym => params["client_#{item[0]}"])
+          @samples = @samples.includes(:client).where("clients.#{item[0]}".to_sym => params[:query]["client_#{item[0]}"])
         when 'rejection_reasons'
-          @samples = @samples.includes(:rejection_reasons).where("rejection_reasons.codigo".to_sym => params[:codigo_rejeicao]).references(:rejection_reasons)
+          @samples = @samples.includes(:rejection_reasons).where("rejection_reasons.codigo".to_sym => params[:query][:codigo_rejeicao]).references(:rejection_reasons)
         # when 'status'
         end
+
       end
     end
     @quantidade = @samples.count
