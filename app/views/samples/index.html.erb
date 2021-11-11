@@ -8,47 +8,48 @@
 <table class="table table-hover">
     <thead class="thead-dark">
       <tr>
-      <th>Número da Amostra</th>
-        <th>Cliente</th>
-        <th>Cidade</th>
-        <th>Estado</th>
+      <th>RG</th>
+      <th>Cidade</th>
+      <th>Estado</th>
       <th>Data de Recepção</th>
       <th>Programa</th>
       <th>Matriz</th>
-      <th>Subgrupo</th>
-      <th>Produto</th>
-      <th>RG</th>
+
+
       <th>Área Analítica</th>
       <th>Objetivo da Amostra</th>
       <th>Liberada?</th>
       <th>Data de Liberação</th>
       <th>Status</th>
-      <th>Latente?</th>
-      <th>Descartada?</th>
-      <th>Data de Descarte</th>
+
+
+
     </tr>
     </thead>
     <tbody id="tbody">
     <% @samples.each do |sample| %>
       <tr>
-        <td><%= sample.sample_number %></td>
-          <td><%= sample.client.name %></td>
-          <td><%= sample.client.city %></td>
-          <td><%= sample.client.state %></td>
+        <td><%= sample.rg %></td>
+        <td><%= sample.client.city %></td>
+        <td><%= sample.client.state %></td>
         <td><%= sample.data_recepcao.strftime('%d/%m/%Y') %></td>
         <td><%= sample.programa %></td>
-        <td><%= sample.matriz %></td>
-        <td><%= sample.subgrupo %></td>
-        <td><%= sample.produto %></td>
-        <td><%= sample.rg %></td>
+        <td><%= sample.matriz.capitalize %></td>
+
+
+
         <td><%= sample.area_analitica %></td>
-        <td><%= sample.objetivo_amostra %></td>
-        <td><%= sample.liberada %></td>
+        <td><%= sample.objetivo_amostra.capitalize %></td>
+        <td>
+          <% if sample.liberada == true %>
+            <i class="fas fa-check-square" style="color: green;"></i>
+          <% end %>
+          </td>
         <td><%= sample.data_liberacao.strftime('%d/%m/%Y') unless sample.data_liberacao.nil? %></td>
         <td><%= sample.status %></td>
-        <td><%= sample.latente %></td>
-        <td><%= sample.descartada %></td>
-        <td><%= sample.data_descarte.strftime('%d/%m/%Y') unless sample.data_descarte.nil? %></td>
+
+
+
       </tr>
     <% end %>
     </tbody>
