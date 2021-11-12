@@ -3,6 +3,7 @@
   overflow: hidden;
   overflow-x: auto;
   overflow-y: auto;
+  max-height: 600px;
 }
 
 #table tr {
@@ -17,6 +18,15 @@
   cursor: grab;
 }
 
+#table thead th {
+  position: sticky;
+  top: 0;
+}
+
 #tbody {
   overflow: hidden;
+}
+
+.sortable tr {
+    cursor: pointer;
 }

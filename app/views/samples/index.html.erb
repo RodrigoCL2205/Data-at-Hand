@@ -6,24 +6,23 @@
 
 <p>Foram encontradas <strong><%= @quantidade %></strong> amostras.</p>
 
- <%= paginate @samples %>
+<%= paginate @samples %>
 
 <div id="table">
-
-<table class="table table-hover">
-    <thead class="thead-dark">
-      <tr>
-      <th>RG</th>
-      <th>Cidade</th>
-      <th>UF</th>
-      <th>Data de Recepção</th>
-      <th>Programa</th>
-      <th>Matriz</th>
-      <th>Área Analítica</th>
-      <th>Objetivo da Amostra</th>
-      <th>Liberada?</th>
-      <th>Data de Liberação</th>
-      <th>Status</th>
+  <table class="table table-hover sortable">
+      <thead class="thead-dark">
+        <tr>
+        <th>RG</th>
+        <th>Cidade</th>
+        <th>Estado</th>
+        <th>Data de Recepção</th>
+        <th>Programa</th>
+        <th>Matriz</th>
+        <th>Área Analítica</th>
+        <th>Objetivo da Amostra</th>
+        <th>Liberada?</th>
+        <th>Data de Liberação</th>
+        <th>Status</th>
     </tr>
     </thead>
     <tbody id="tbody">
@@ -54,9 +53,9 @@
           </td>
         <td><%= sample.data_liberacao.strftime('%d/%m/%Y') unless sample.data_liberacao.nil? %></td>
         <td><%= sample.status %></td>
-      </tr>
-    <% end %>
-    </tbody>
+        </tr>
+      <% end %>
+      </tbody>
   </table>
-
-  <%= paginate @samples %>
+</div>
+<%= paginate @samples %>
