@@ -11,6 +11,11 @@ before_action :find, only: :show
     @mic = {}
     @total_mic = Sample.area_analitica('MIC').where('data_recepcao >= ? AND data_recepcao <= ? ', "#{@start_time}", "#{@end_time}")
     segmentation
+    respond_to do |format|
+      format.html
+      format.csv { send_data @total_mic.twelve_csv(@mic, @tabela_mic),
+        filename: "indicador12/#{Date.today}.csv"}
+    end
   end
 
   # funcao que pede a data o periodo para inserir no indicador 12
@@ -89,9 +94,10 @@ before_action :find, only: :show
   end
 
   def export(samples_export)
+    # raise
     respond_to do |format|
       format.html
-      format.csv { send_data samples_export.to_csv.encode("UTF-8"),
+      format.csv { send_data samples_export.to_csv,
         filename: "samples/#{Date.today}.csv"}
     end
   end

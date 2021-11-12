@@ -5,6 +5,10 @@
 <% if params[:twelve].present? %>
 
   <h4>Resultados para o período de <strong> <%= @start_time.strftime('%d/%b/%Y') %> </strong> a <strong> <%= @end_time.strftime('%d/%b/%Y') %>:</strong></h4>
+
+  <%= link_to "Exportar arquivo csv", twelve_path(twelve: params[:twelve].to_enum.to_h, format: "csv"),
+    class: "btn btn-export" %>
+
   <table class="table table-hover">
     <thead class="thead-dark">
       <tr>

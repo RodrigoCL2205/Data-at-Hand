@@ -37,4 +37,15 @@ class Sample < ApplicationRecord
     end
   end
 
+  def self.twelve_csv(mic, tabela_mic)
+    CSV.generate(headers: true, col_sep: ";") do |csv|
+      csv << ['Área', 'Programa', 'Finalizadas', 'Rejeitadas (Motivo externo)',
+        'Rejeitadas (Motivo interno)', 'Aguardando Análise', 'Amostras recebidas']
+      tabela_mic.each do |item|
+        row = ['MIC', item[1], mic[item[0]][:finalizada], mic[item[0]][:rejeitada_externo],
+          mic[item[0]][:rejeitada_interno], mic[item[0]][:aguardando], mic[item[0]][:total] ]
+        csv << row
+      end
+    end
+  end
 end
