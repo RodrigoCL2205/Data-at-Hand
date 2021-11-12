@@ -51,7 +51,7 @@ before_action :find, only: :show
 
     # Será utilizado para verificar quais tabelas serão mostradas ao usuário parametros tabela samples
     search_fields = {
-      status: 'samples', 
+      status: 'samples',
       programa: 'samples',
       matriz: 'samples',
       area_analitica: 'samples',
