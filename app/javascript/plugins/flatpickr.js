@@ -13,6 +13,7 @@ import rangePlugin from "flatpickr/dist/plugins/rangePlugin";
 const initFlatpickr = () => {
   flatpickr("#range_start", {
     altInput: true,
+    allowInput: true,
     plugins: [new rangePlugin({ input: "#range_end" })],
     locale: Portuguese,
     format: "d/m/Y",
@@ -22,6 +23,7 @@ const initFlatpickr = () => {
 
   flatpickr(".datepicker", {
     altInput: true,
+    allowInput: true,
     locale: Portuguese,
     format: "d/m/Y",
     altFormat: "d/m/Y",
