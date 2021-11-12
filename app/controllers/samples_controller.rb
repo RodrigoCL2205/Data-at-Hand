@@ -3,6 +3,7 @@ before_action :time_params, only: :twelve
 before_action :tabela_mic, only: :twelve
 before_action :import_names, only: :query
 before_action :siglas, only: :index
+before_action :find, only: :show
 
 
   # funcao que vai chamar o indicador 12
@@ -63,7 +64,6 @@ before_action :siglas, only: :index
     @quantidade = @samples.count
     @samples = @samples.page(params[:page])
   end
-
 
   def show
     @sample = Sample.find(params[:id])
