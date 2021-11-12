@@ -28,37 +28,56 @@ before_action :find, only: :show
 
   # exibir resultados da busca personalizada
   def index
-    @rejections = Rejection.all
-    # Será utilizado para verificar quais tabelas serão mostradas ao usuário parametros tabela samples
-    search_fields = [
-      ['status', 'samples'],
-      ['programa', 'samples'],
-      ['matriz', 'samples'],
-      ['area_analitica', 'samples'],
-      ['rg', 'samples'],
-      ['name', 'client'],
-      ['city', 'client'],
-      ['state', 'client'],
-      ['codigo_rejeicao', 'rejection_reasons']
-    ]
     @samples = Sample.all
-    segment = Sample.where('matriz'.to_sym =>'CARNE')
-    search_fields.each do |item|
-      if item[1] == 'client'
-        value = "client_#{item[0]}".to_sym
+    # selecionar data de recepcao
+    if params[:query][:start_time_recepcao].present?
+      date = params[:query][:start_time_recepcao].to_date
+      @samples = @samples.where("data_recepcao >= ?", date)
+    end
+    if params[:query][:end_time_recepcao].present?
+      date = params[:query][:end_time_recepcao].to_date
+      @samples = @samples.where("data_recepcao <= ?", date)
+    end
+
+    # selecionar data de liberacao
+    if params[:query][:start_time_liberacao].present?
+      date = params[:query][:start_time_liberacao].to_date
+      @samples = @samples.where("data_liberacao >= ?", date)
+    end
+    if params[:query][:end_time_liberacao].present?
+      date = params[:query][:end_time_liberacao].to_date
+      @samples = @samples.where("data_liberacao <= ?", date)
+    end
+
+    # Será utilizado para verificar quais tabelas serão mostradas ao usuário parametros tabela samples
+    search_fields = {
+      status: 'samples', 
+      programa: 'samples',
+      matriz: 'samples',
+      area_analitica: 'samples',
+      rg: 'rg',
+      name: 'client',
+      city: 'client',
+      state: 'client',
+      codigo_rejeicao: 'rejection_reasons'
+    }
+    search_fields.each do |key, value|
+      if value == 'client'
+        item = "client_#{key.to_s}".to_sym
       else
-        value = item[0].to_sym
+        item = key
       end
-      if params[:query][value].present?
-        case item[1]
+      if params[:query][item].present?
+        case value
+        when 'rg'
+          @samples = @samples.where('rg ILIKE ?', "%#{params[:query][:rg]}%")
         when 'samples'
-          @samples = @samples.where(item[0].to_sym => params[:query][item[0]])
+          @samples = @samples.where(key => params[:query][item])
         when 'client'
-          @samples = @samples.includes(:client).where("clients.#{item[0]}".to_sym => params[:query]["client_#{item[0]}"])
+          @samples = @samples.includes(:client).where("clients.#{key.to_s}".to_sym => params[:query][item])
         when 'rejection_reasons'
           @samples = @samples.includes(:rejection_reasons).where("rejection_reasons.codigo".to_sym => params[:query][:codigo_rejeicao]).references(:rejection_reasons)
         end
-
       end
     end
     @quantidade = @samples.count
