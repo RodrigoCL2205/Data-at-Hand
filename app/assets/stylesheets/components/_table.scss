@@ -13,6 +13,9 @@
   overflow: hidden;
   white-space: nowrap;
 }
+#table td :hover {
+  cursor: grab;
+}
 
 #tbody {
   overflow: hidden;

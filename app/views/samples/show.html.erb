@@ -12,7 +12,9 @@
   <p><strong>Cidade:</strong> <%= @sample.client.city %></p>
   <p><strong>Área analítica:</strong> <%= @sample.area_analitica %></p>
   <p><strong>Status:</strong> <%= "#{situacao}" %></p>
-  
+
   <p><strong>Data de recepção:</strong> <%= @sample.data_recepcao.strftime('%d/%m/%Y') %></p>
   <p><strong>Data de liberação:</strong> <%= @sample.data_liberacao.nil? ? '-' : @sample.data_liberacao.strftime('%d/%m/%Y') %></p>
+
+  <a href="javascript:history.back()" class="br-button secondary mt-3 mt-sm-0 ml-sm-3">Voltar</a>
 </div>
