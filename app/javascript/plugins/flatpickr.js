@@ -20,6 +20,14 @@ const initFlatpickr = () => {
     dateFormat: 'd/m/Y'
   });
 
+  flatpickr(".datepicker", {
+    altInput: true,
+    locale: Portuguese,
+    format: "d/m/Y",
+    altFormat: "d/m/Y",
+    dateFormat: 'd/m/Y'
+  });
+
 }
 
 export { initFlatpickr };
