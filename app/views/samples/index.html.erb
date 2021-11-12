@@ -2,13 +2,13 @@
   <h2>Resultado da Busca</h2>
 </div>
 
-<div class="mt-3">
+<p class="mt-3 mt-sm-0 ml-sm-3">Foram encontradas <strong><%= @quantidade %></strong> amostras.</p>
+
+<div class="mt-3 justify-content-between mt-3 mt-sm-0 ml-sm-3">
   <a href="javascript:history.back()" class="br-button secondary mt-3 mt-sm-0 ml-sm-3">Voltar</a>
+  <%= link_to "Exportar arquivo csv", samples_path(@samples, query: params[:query].to_enum.to_h, format: "csv"), 
+       class: "br-button secondary mt-3 mt-sm-0 ml-sm-3" %>
 </div>
-
-
-
-<p>Foram encontradas <strong><%= @quantidade %></strong> amostras.</p>
 
 <%= paginate @samples %>
 

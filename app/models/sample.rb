@@ -12,4 +12,40 @@ class Sample < ApplicationRecord
   scope :aguardando, ->(end_time) { where(liberada: false).or(where('liberada = true AND data_liberacao > ?', "#{end_time}")) }
   scope :rejeitada, ->(end_time) { where("status ILIKE 'R' AND liberada = true AND data_liberacao <= ?", "#{end_time}") }
   scope :rejeitada_interno, -> {includes(:rejection_reasons).where('rejection_reasons.codigo ILIKE ?', "%R13%").references(:rejection_reasons) }
+
+  def self.to_csv
+    CSV.generate(headers: true, col_sep: ";") do |csv|
+      csv << ["RG", "Nome do cliente", "Município", "Estado", "Programa",
+        "Matriz", "Subgrupo", "Produto", "Área Analítica", "Objetivo da Amostra",
+        "Data da recepção", "Latente?", "Status", "Liberada?", "Data da liberação",
+        "Descartada?", "Data do descarte"]
+      sigla_status = {'U': "Não recebida", 'I': "Incompleta", 'P': 'Em processamento', 
+        'C': 'Completa', 'A': 'Autorizada', 'R': "Rejeitada", 'X': "Cancelada"}
+      all.each do |sample|
+        sample.liberada? ? liberada = "Sim" : liberada = "Não"
+        sample.latente? ? latente = "Sim" : latente = "Não"
+        sample.descartada? ? descartada = "Sim" : descartada = "Não"
+        status = sigla_status[sample.status]
+        sample.data_descarte.nil? ? data_descarte = "" : data_descarte = sample.data_descarte.strftime("%d/%m/%y")
+        sample.data_liberacao.nil? ? data_liberacao = "" : data_liberacao = sample.data_liberacao.strftime("%d/%m/%y")
+        row = [sample.rg, sample.client.name, sample.client.city, sample.client.state, sample.programa,
+        sample.matriz, sample.subgrupo, sample.produto, sample.area_analitica, sample.objetivo_amostra,
+        sample.data_recepcao.strftime("%d/%m/%y"), latente, status, liberada, data_liberacao,
+        descartada, data_descarte ]
+        csv << row
+      end
+    end
+  end
+
+  def self.twelve_csv(mic, tabela_mic)
+    CSV.generate(headers: true, col_sep: ";") do |csv|
+      csv << ['Área', 'Programa', 'Finalizadas', 'Rejeitadas (Motivo externo)',
+        'Rejeitadas (Motivo interno)', 'Aguardando Análise', 'Amostras recebidas']
+      tabela_mic.each do |item|
+        row = ['MIC', item[1], mic[item[0]][:finalizada], mic[item[0]][:rejeitada_externo],
+          mic[item[0]][:rejeitada_interno], mic[item[0]][:aguardando], mic[item[0]][:total] ]
+        csv << row
+      end
+    end
+  end
 end

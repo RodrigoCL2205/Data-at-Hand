@@ -11,6 +11,11 @@ before_action :find, only: :show
     @mic = {}
     @total_mic = Sample.area_analitica('MIC').where('data_recepcao >= ? AND data_recepcao <= ? ', "#{@start_time}", "#{@end_time}")
     segmentation
+    respond_to do |format|
+      format.html
+      format.csv { send_data @total_mic.twelve_csv(@mic, @tabela_mic),
+        filename: "indicador12/#{Date.today}.csv"}
+    end
   end
 
   # funcao que pede a data o periodo para inserir no indicador 12
@@ -30,24 +35,25 @@ before_action :find, only: :show
   def index
     @samples = Sample.all
     # selecionar data de recepcao
-    if params[:query][:start_time_recepcao].present?
-      date = params[:query][:start_time_recepcao].to_date
-      @samples = @samples.where("data_recepcao >= ?", date)
-    end
-    if params[:query][:end_time_recepcao].present?
-      date = params[:query][:end_time_recepcao].to_date
-      @samples = @samples.where("data_recepcao <= ?", date)
-    end
+    if params[:query].present?
+      if params[:query][:start_time_recepcao].present?
+        date = params[:query][:start_time_recepcao].to_date
+        @samples = @samples.where("data_recepcao >= ?", date)
+      end
+      if params[:query][:end_time_recepcao].present?
+        date = params[:query][:end_time_recepcao].to_date
+        @samples = @samples.where("data_recepcao <= ?", date)
+      end
 
-    # selecionar data de liberacao
-    if params[:query][:start_time_liberacao].present?
-      date = params[:query][:start_time_liberacao].to_date
-      @samples = @samples.where("data_liberacao >= ?", date)
-    end
-    if params[:query][:end_time_liberacao].present?
-      date = params[:query][:end_time_liberacao].to_date
-      @samples = @samples.where("data_liberacao <= ?", date)
-    end
+      # selecionar data de liberacao
+      if params[:query][:start_time_liberacao].present?
+        date = params[:query][:start_time_liberacao].to_date
+        @samples = @samples.where("data_liberacao >= ?", date)
+      end
+      if params[:query][:end_time_liberacao].present?
+        date = params[:query][:end_time_liberacao].to_date
+        @samples = @samples.where("data_liberacao <= ?", date)
+      end
 
     # Será utilizado para verificar quais tabelas serão mostradas ao usuário parametros tabela samples
     search_fields = {
@@ -67,21 +73,57 @@ before_action :find, only: :show
       else
         item = key
       end
-      if params[:query][item].present?
-        case value
-        when 'rg'
-          @samples = @samples.where('rg ILIKE ?', "%#{params[:query][:rg]}%")
-        when 'samples'
-          @samples = @samples.where(key => params[:query][item])
-        when 'client'
-          @samples = @samples.includes(:client).where("clients.#{key.to_s}".to_sym => params[:query][item])
-        when 'rejection_reasons'
-          @samples = @samples.includes(:rejection_reasons).where("rejection_reasons.codigo".to_sym => params[:query][:codigo_rejeicao]).references(:rejection_reasons)
+      if params[:query][:end_time_liberacao].present?
+        date = params[:query][:end_time_liberacao].to_date
+        @samples = @samples.where("data_liberacao <= ?", date)
+      end
+    end
+
+      # Será utilizado para verificar quais tabelas serão mostradas ao usuário parametros tabela samples
+      search_fields = {
+        status: 'samples', 
+        programa: 'samples',
+        matriz: 'samples',
+        area_analitica: 'samples',
+        rg: 'rg',
+        name: 'client',
+        city: 'client',
+        state: 'client',
+        codigo_rejeicao: 'rejection_reasons'
+      }
+      search_fields.each do |key, value|
+        if value == 'client'
+          item = "client_#{key.to_s}".to_sym
+        else
+          item = key
+        end
+        if params[:query][item].present?
+          case value
+          when 'rg'
+            @samples = @samples.where('rg ILIKE ?', "%#{params[:query][:rg]}%")
+          when 'samples'
+            @samples = @samples.where(key => params[:query][item])
+          when 'client'
+            @samples = @samples.includes(:client).where("clients.#{key.to_s}".to_sym => params[:query][item])
+          when 'rejection_reasons'
+            @samples = @samples.includes(:rejection_reasons).where("rejection_reasons.codigo".to_sym => params[:query][:codigo_rejeicao]).references(:rejection_reasons)
+          end
         end
       end
     end
     @quantidade = @samples.count
+    @samples_export = @samples
+    export(@samples_export)
     @samples = @samples.page(params[:page])
+  end
+
+  def export(samples_export)
+    # raise
+    respond_to do |format|
+      format.html
+      format.csv { send_data samples_export.to_csv,
+        filename: "samples/#{Date.today}.csv"}
+    end
   end
 
   def show
