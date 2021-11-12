@@ -1,7 +1,9 @@
 class SamplesController < ApplicationController
-  before_action :time_params, only: :twelve
-  before_action :tabela_mic, only: :twelve
-  before_action :find, only: :show
+before_action :time_params, only: :twelve
+before_action :tabela_mic, only: :twelve
+before_action :import_names, only: :query
+before_action :siglas, only: :index
+
 
   # funcao que vai chamar o indicador 12
   def twelve
@@ -23,83 +25,51 @@ class SamplesController < ApplicationController
   def thirty
   end
 
+  # exibir resultados da busca personalizada
   def index
-    @samples = Sample.all
-    @clients = Client.all
     @rejections = Rejection.all
-    # @samples = Sample.page(params[:page])
-    # Será utilizado para verificar quais tabelas serão mostradas ao usuário
-    @show = {
-      status: false,
-      programa: false,
-      matriz: false,
-      area_analitica: false,
-      client_name: false,
-      client_city: false,
-      client_state: false,
-      codigo_rejeicao: false
-    }
-
-    if params[:status].present?
-      @samples = @samples.collect { |sample| sample if sample.status == params[:status] }.compact
-      @show[:status] = true
-
-    end
-
-    if params[:programa].present?
-      @samples = @samples.collect { |sample| sample if sample.programa == params[:programa] }.compact
-      @show[:programa] = true
-    end
-
-    if params[:matriz].present?
-      @samples = @samples.collect { |sample| sample if sample.matriz == params[:matriz] }.compact
-      @show[:matriz] = true
-    end
-
-    if params[:area_analitica].present?
-      @samples = @samples.collect { |sample| sample if sample.area_analitica == params[:area_analitica] }.compact
-      @show[:area_analitica] = true
-    end
-
-    if params[:rg].present?
-      @samples = @samples.collect { |sample| sample if sample.rg == params[:rg] }.compact
-      @show[:rg] = true
-    end
-
-    if params[:client_name].present?
-      @client = @clients.collect { |client| client if client.name == params[:client_name] }.compact.first
-      @samples = @samples.collect { |sample| sample if sample.client == @client }.compact
-      @show[:client_name] = true
-    end
-
-    if params[:client_city].present?
-      @clients = @clients.collect { |client| client if client.city == params[:client_city] }.compact
-      @samples = @samples.collect { |sample| sample if @clients.include?(sample.client) }.compact
-      @show[:client_city] = true
-    end
-
-    if params[:client_state].present?
-      @clients = @clients.collect { |client| client if client.state == params[:client_state] }.compact
-      @samples = @samples.collect { |sample| sample if @clients.include?(sample.client) }.compact
-      @show[:client_state] = true
-    end
-
-    if params[:codigo_rejeicao].present?
-      @rejections = @rejections.collect do |rejection|
-        rejection if rejection.rejection_reason.codigo == params[:codigo_rejeicao]
+    # Será utilizado para verificar quais tabelas serão mostradas ao usuário parametros tabela samples
+    search_fields = [
+      ['status', 'samples'], 
+      ['programa', 'samples'],
+      ['matriz', 'samples'],
+      ['area_analitica', 'samples'],
+      ['rg', 'samples'],
+      ['name', 'client'],
+      ['city', 'client'],
+      ['state', 'client'],
+      ['codigo_rejeicao', 'rejection_reasons']
+    ]
+    @samples = Sample.all
+    segment = Sample.where('matriz'.to_sym =>'CARNE')
+    search_fields.each do |item|
+      if item[1] == 'client'
+        value = "client_#{item[0]}".to_sym
+      else
+        value = item[0].to_sym
       end
-      @rejections = @rejections.compact
-      samples_in_rejections = []
-      @rejections.each { |rejection| samples_in_rejections << rejection.sample }.uniq
-      @samples = @samples.collect { |sample| sample if samples_in_rejections.include?(sample) }.compact
-      @show[:codigo_rejeicao] = true
+      if params[:query][value].present?
+        case item[1]
+        when 'samples'
+          @samples = @samples.where(item[0].to_sym => params[:query][item[0]])
+        when 'client'
+          @samples = @samples.includes(:client).where("clients.#{item[0]}".to_sym => params[:query]["client_#{item[0]}"])
+        when 'rejection_reasons'
+          @samples = @samples.includes(:rejection_reasons).where("rejection_reasons.codigo".to_sym => params[:query][:codigo_rejeicao]).references(:rejection_reasons)
+        end
+
+      end
     end
+    @quantidade = @samples.count
+    @samples = @samples.page(params[:page])
   end
 
-  def show; end
 
+  def show; 
+  end
+
+  # selecionar opcoes para a busca personalizada
   def query
-    import_names
   end
 
   private
@@ -215,5 +185,46 @@ class SamplesController < ApplicationController
     @areas_analiticas = Sample.all.order('area_analitica ASC').distinct.pluck(:area_analitica)
     @rgs = Sample.all.order('rg ASC').distinct.pluck(:rg)
     @codigos_rejeicoes = RejectionReason.all.order('codigo ASC').distinct.pluck(:codigo)
+  end
+
+  def siglas
+    @sigla_programas = [
+      ["Requisitos Complementares IN 60/2018", "Atendimento ao Consolidado de requisitos complementares à exportação aos Estados Unidos e à IN º 60/2018."],
+      ["PACPOA", "PACPOA - Programa de Avaliação de Conformidade de Produtos de Origem Animal"],
+      ["PNCRC","PROGRAMA NACIONAL DE CONTROLE DE RESÍDUOS E CONTAMINANTES - ÁREA ANIMAL"],
+      ["PNCP E. coli", "Programa de Controle STEC (IN 60/2018)"],
+      ["PNCP Listeria", "Programa de Controle de Listeria Monocytogenes (IN 09/2009)"],
+      ["PNCP Salmonella", "Programa de Redução de Patógenos em Aves (IN 20/2016)"]
+    ]
+
+    @uf = [
+      ["AC","Acre"],
+      ["AL","Alagoas"],
+      ["AP","Amapá"],
+      ["AM","Amazonas"],
+      ["BA","Bahia"],
+      ["CE","Ceará"],
+      ["DF","Distrito Federal"],
+      ["ES","Espírito Santo"],
+      ["GO","Goiás"],
+      ["MA","Maranhão"],
+      ["MT","Mato Grosso"],
+      ["MS","Mato Grosso do Sul"],
+      ["MG","Minas Gerais"],
+      ["PR","Paraná"],
+      ["PB","Paraíba"],
+      ["PA","Pará"],
+      ["PE","Pernambuco"],
+      ["PI","Piauí"],
+      ["RN","Rio Grande do Norte"],
+      ["RS","Rio Grande do Sul"],
+      ["RJ","Rio de Janeiro"],
+      ["RO","Rondônia"],
+      ["RR","Roraima"],
+      ["SC","Santa Catarina"],
+      ["SE","Sergipe"],
+      ["SP","São Paulo"],
+      ["TO","Tocantins"]
+    ]
   end
 end
