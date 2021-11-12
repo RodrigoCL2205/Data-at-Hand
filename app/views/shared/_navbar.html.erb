@@ -20,8 +20,9 @@
         <% if user_signed_in? %>
           <div class="avatar dropdown-toggle br-button sign-in small" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Meu cadastro</div>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-            <%= link_to "Action", "#", class: "dropdown-item" %>
-
+          <% if current_user.admin? %>
+            <%= link_to "Blazer", blazer_path, class: "dropdown-item" %>
+          <% end %>
             <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
           </div>
         <% else %>
