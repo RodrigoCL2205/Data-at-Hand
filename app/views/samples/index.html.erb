@@ -9,7 +9,7 @@
 <%= paginate @samples %>
 
 <div id="table">
-  <table class="table table-hover sortable">
+  <table class="table table-hover">
       <thead class="thead-dark">
         <tr>
         <th>RG</th>
@@ -29,7 +29,7 @@
     <% @samples.each do |sample| %>
       <tr>
         <td>
-          <%= link_to sample_path(sample) do %>
+          <%= link_to sample_path(sample), class:"sortable" do %>
             <%= sample.rg %>
           <% end %>
         </td>
