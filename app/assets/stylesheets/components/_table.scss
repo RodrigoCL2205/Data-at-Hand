@@ -27,6 +27,7 @@
   overflow: hidden;
 }
 
-.sortable tr {
-    cursor: pointer;
+.sortable {
+    cursor: pointer !important;
+    text-decoration: none !important;
 }

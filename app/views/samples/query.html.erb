@@ -1,104 +1,125 @@
+<div class="banner-sec bg-primary-darken-02 pt-2 pb-2">
+  <h2>Busca Personalizada</h2>
+</div>
+
 <div class="container">
   <div class="row justify-content-center m-3">
-    <div class="col-12 col-sm-8">
+    <div class="col-12 col-sm-10">
         <%= simple_form_for :query, url: samples_path, method: "get" do |f| %>
 
-          <div class="mb-3">
-            <%= f.input :status, label: "Status",
-              label: false,
-              class: "form-control form-select",
-              collection: @statuss,
-              prompt: "Filtre por Status"
-            %>
+          <div class="row justify-content-between">
+            <div class="mb-3 col-4">
+              <%= f.label :status, label: "Filtre por RG", required: false %>
+              <%= f.input :rg,
+                label: false,
+                class: "form-control",
+                include_blank: true
+              %>
+            </div>
+
+            <div class="mb-3 col-3">
+              <%= f.label :status, label: "Filtre por Status", required: false %>
+              <%= f.input :status,
+                label: false,
+                class: "form-control form-select",
+                collection: @statuss,
+                include_blank: true
+              %>
+            </div>
+
+            <div class="mb-3 col-4">
+              <%= f.label :status, label: "Filtre por Código de Rejeição", required: false %>
+              <%= f.input :codigo_rejeicao,
+                label: false,
+                class: "form-control form-select",
+                collection: @codigos_rejeicoes,
+                include_blank: true
+              %>
+            </div>
           </div>
 
           <div class="mb-3">
-            <%= f.input :programa, label: "Programa",
+            <%= f.label :status, label: "Filtre por Programa", required: false %>
+            <%= f.input :programa,
               label: false,
               class: "form-control form-select",
               collection: @programas,
-              prompt: "Filtre por Programa"
+              include_blank: true
             %>
           </div>
 
-          <div class="mb-3">
-            <%= f.input :client_name, label: "Clientes",
-              label: false,
-              class: "form-control form-select",
-              collection: @clients_name,
-              prompt: "Filtre por Cliente"
-            %>
+          <div class="row justify-content-between">
+            <div class="mb-3 mr-1 col-4">
+              <%= f.label :status, label: "Filtre por Cliente", required: false %>
+              <%= f.input :client_name,
+                label: false,
+                class: "form-control form-select",
+                collection: @clients_name,
+                include_blank: true
+              %>
+            </div>
+
+            <div class="mb-3 mr-1 col-4">
+              <%= f.label :status, label: "Filtre por Cidade", required: false %>
+              <%= f.input :client_city,
+                label: false,
+                class: "form-control form-select",
+                collection: @clients_city,
+                include_blank: true
+              %>
+            </div>
+
+            <div class="mb-3 col-3">
+              <%= f.label :status, label: "Filtre por Estado", required: false %>
+              <%= f.input :client_state,
+                label: false,
+                class: "form-control form-select",
+                collection: @clients_state,
+                include_blank: true
+              %>
+            </div>
           </div>
 
-          <div class="mb-3">
-            <%= f.input :client_city, label: "Cidades",
-              label: false,
-              class: "form-control form-select",
-              collection: @clients_city,
-              prompt: "Filtre por Cidade"
-            %>
+          <div class="row">
+            <div class="mb-3 col-6">
+              <%= f.label :status, label: "Filtre por Matriz", required: false %>
+              <%= f.input :matriz,
+                label: false,
+                class: "form-control form-select",
+                collection: @matrizes,
+                include_blank: true
+              %>
+            </div>
+
+            <div class="mb-3 col-6">
+              <%= f.label :status, label: "Filtre por Área Analítica", required: false %>
+              <%= f.input :area_analitica,
+                label: false,
+                class: "form-control form-select",
+                collection: @areas_analiticas,
+                include_blank: true
+              %>
+            </div>
           </div>
 
-          <div class="mb-3">
-            <%= f.input :client_state,
-              label: false,
-              class: "form-control form-select",
-              collection: @clients_state,
-              prompt: "Filtre por Estado"
-            %>
+
+        <div class="row justify-content-between">
+          <div class="mb-3 just col-6">
+            <%= f.label :start_time_recepcao, "Intervalo das Datas de Recepção", required: false %>
+            <div class="row">
+              <%= f.input :start_time_recepcao, as: :string, label:false, placeholder: "Data de Início", required: false, input_html: {class: "datepicker"} %>
+              <%= f.input :end_time_recepcao, as: :string, label: false, placeholder: "Data Final", required: false, input_html: {class: "datepicker"} %>
+            </div>
           </div>
 
-          <div class="mb-3">
-            <%= f.input :matriz,
-              label: false,
-              class: "form-control form-select",
-              collection: @matrizes,
-              prompt: "Filtre por Matriz"
-            %>
-          </div>
-
-          <div class="mb-3">
-            <%= f.input :area_analitica,
-              label: false,
-              class: "form-control form-select",
-              collection: @areas_analiticas,
-              prompt: "Filtre por Área Analítica"
-            %>
-          </div>
-
-          <div class="mb-3">
-            <%= f.input :rg,
-              label: false,
-              class: "form-control",
-              placeholder: "Filtre por RG"
-            %>
-          </div>
-
-          <div class="mb-3">
-            <%= f.input :codigo_rejeicao,
-              label: false,
-              class: "form-control form-select",
-              collection: @codigos_rejeicoes,
-              prompt: "Filtre por Código de Rejeição"
-            %>
-          </div>
-
-        <div class="mb-3">
-          <%= f.label "Intervalo das datas de Recepção" %>
-          <div class="form-inline">
-            <%= f.input :start_time_recepcao, as: :string, label:false, placeholder: "Data de Início", required: false, input_html: {class: "datepicker"} %>
-            <%= f.input :end_time_recepcao, as: :string, label: false, placeholder: "Data Final", required: false, input_html: {class: "datepicker"} %>
+          <div class="mb-3 col-6">
+            <%= f.label :start_time_liberacao, "Intervalo das datas de Liberação", required: false %>
+            <div class="row">
+              <%= f.input :start_time_liberacao, as: :string, label:false, placeholder: "Data de Início", required: false, input_html: {class: "datepicker"} %>
+              <%= f.input :end_time_liberacao, as: :string, label: false, placeholder: "Data Final", required: false, input_html: {class: "datepicker"} %>
+            </div>
           </div>
         </div>
-
-        <div class="mb-3">
-          <%= f.label "Intervalo das datas de Liberação" %>
-          <div class="form-inline">
-            <%= f.input :start_time_liberacao, as: :string, label:false, placeholder: "Data de Início", required: false, input_html: {class: "datepicker"} %>
-            <%= f.input :end_time_liberacao, as: :string, label: false, placeholder: "Data Final", required: false, input_html: {class: "datepicker"} %>
-          </div>
-        </div>
-
           <div class="form-actions">
             <%= f.button :submit, "Buscar", class: "br-button secondary mt-3 mt-sm-0 ml-sm-3" %>
           </div>

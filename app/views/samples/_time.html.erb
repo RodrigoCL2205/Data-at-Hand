@@ -1,17 +1,25 @@
-<div class="container margin: auto">
+<div class=" margin: auto">
   <div class="row justify-content-center">
-    <div class="col-12 col-sm-4">
-      <div class="form-login">
+    <div class="col-12 col-sm-10">
+
         <h2>Filtro por período</h2>
         <%= simple_form_for :twelve, method: "get" do |f| %>
-          <%= f.input :start_time, as: :string, label: "Data de Início", required: false, input_html: {id: "range_start"} %>
-          <%= f.input :end_time, as: :string, label: "Data Final", required: false, input_html: {id: "range_end"} %>
-          <div class="form-actions">
-            <%= f.button :submit, "Gerar Relatório", class: "btn btn-primary" %>
+
+          <div class="row justify-content-center">
+            <div class="col-3">
+              <%= f.input :start_time, as: :string, label: "Data de Início", required: false, input_html: {class: "datepicker"} %>
+            </div>
+            <div class="col-3">
+              <%= f.input :end_time, as: :string, label: "Data Final", required: false, input_html: {class: "datepicker"} %>
+            </div>
+
+          <div class="form-actions col-3 align-self-center">
+            <%= f.button :submit, "Gerar Relatório", class: "br-button secondary mt-3 mt-sm-0 ml-sm-3" %>
+          </div>
           </div>
 
         <% end %>
-      </div>
+
     </div>
   </div>
 </div>

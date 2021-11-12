@@ -55,6 +55,29 @@ before_action :find, only: :show
         @samples = @samples.where("data_liberacao <= ?", date)
       end
 
+    # Será utilizado para verificar quais tabelas serão mostradas ao usuário parametros tabela samples
+    search_fields = {
+      status: 'samples',
+      programa: 'samples',
+      matriz: 'samples',
+      area_analitica: 'samples',
+      rg: 'rg',
+      name: 'client',
+      city: 'client',
+      state: 'client',
+      codigo_rejeicao: 'rejection_reasons'
+    }
+    search_fields.each do |key, value|
+      if value == 'client'
+        item = "client_#{key.to_s}".to_sym
+      else
+        item = key
+      end
+      if params[:query][:end_time_liberacao].present?
+        date = params[:query][:end_time_liberacao].to_date
+        @samples = @samples.where("data_liberacao <= ?", date)
+      end
+
       # Será utilizado para verificar quais tabelas serão mostradas ao usuário parametros tabela samples
       search_fields = {
         status: 'samples', 
