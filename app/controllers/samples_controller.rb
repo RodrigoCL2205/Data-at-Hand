@@ -84,8 +84,9 @@ before_action :find, only: :show
     @samples = @samples.page(params[:page])
   end
 
-
-  def show; end
+  def show
+    @sample = Sample.find(params[:id])
+  end
 
   # selecionar opcoes para a busca personalizada
   def query
@@ -207,14 +208,14 @@ before_action :find, only: :show
   end
 
   def siglas
-    @sigla_programas = [
-      ["Requisitos Complementares IN 60/2018", "Atendimento ao Consolidado de requisitos complementares à exportação aos Estados Unidos e à IN º 60/2018."],
-      ["PACPOA", "PACPOA - Programa de Avaliação de Conformidade de Produtos de Origem Animal"],
-      ["PNCRC","PROGRAMA NACIONAL DE CONTROLE DE RESÍDUOS E CONTAMINANTES - ÁREA ANIMAL"],
-      ["PNCP E. coli", "Programa de Controle STEC (IN 60/2018)"],
-      ["PNCP Listeria", "Programa de Controle de Listeria Monocytogenes (IN 09/2009)"],
-      ["PNCP Salmonella", "Programa de Redução de Patógenos em Aves (IN 20/2016)"]
-    ]
+    @sigla_programas = {
+      "Atendimento ao Consolidado de requisitos complementares à exportação aos Estados Unidos e à IN º 60/2018." => "Requisitos Complementares IN 60/2018",
+      "PACPOA - Programa de Avaliação de Conformidade de Produtos de Origem Animal" => "PACPOA",
+      "PROGRAMA NACIONAL DE CONTROLE DE RESÍDUOS E CONTAMINANTES - ÁREA ANIMAL" => "PNCRC",
+      "Programa de Controle STEC (IN 60/2018)" => "PNCP E. coli",
+      "Programa de Controle de Listeria Monocytogenes (IN 09/2009)" => "PNCP Listeria",
+      "Programa de Redução de Patógenos em Aves (IN 20/2016)" => "PNCP Salmonella"
+      }
 
     @uf = [
       ["AC","Acre"],

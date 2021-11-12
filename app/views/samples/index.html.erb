@@ -1,34 +1,48 @@
+<div class="mt-3">
+  <a href="javascript:history.back()" class="br-button secondary mt-3 mt-sm-0 ml-sm-3">Voltar</a>
+</div>
+
 <h2>Resultado da Busca</h2>
+
 <p>Foram encontradas <strong><%= @quantidade %></strong> amostras.</p>
 
- <%= paginate @samples %>
+<%= paginate @samples %>
 
 <div id="table">
-
-<table class="table table-hover">
-    <thead class="thead-dark">
-      <tr>
-      <th>RG</th>
-      <th>Cidade</th>
-      <th>Estado</th>
-      <th>Data de Recepção</th>
-      <th>Programa</th>
-      <th>Matriz</th>
-      <th>Área Analítica</th>
-      <th>Objetivo da Amostra</th>
-      <th>Liberada?</th>
-      <th>Data de Liberação</th>
-      <th>Status</th>
+  <table class="table table-hover sortable">
+      <thead class="thead-dark">
+        <tr>
+        <th>RG</th>
+        <th>Cidade</th>
+        <th>Estado</th>
+        <th>Data de Recepção</th>
+        <th>Programa</th>
+        <th>Matriz</th>
+        <th>Área Analítica</th>
+        <th>Objetivo da Amostra</th>
+        <th>Liberada?</th>
+        <th>Data de Liberação</th>
+        <th>Status</th>
     </tr>
     </thead>
     <tbody id="tbody">
     <% @samples.each do |sample| %>
-      <tr onclick="location.href='<%= sample_path(sample) %>'">
-        <td><%= sample.rg %></td>
+      <tr>
+        <td>
+          <%= link_to sample_path(sample) do %>
+            <%= sample.rg %>
+          <% end %>
+        </td>
         <td><%= sample.client.city %></td>
-        <td><%= sample.client.state %></td>
-        <td><%= sample.data_recepcao.strftime('%d/%m/%Y') %></td>
-        <td><%= sample.programa %></td>
+        <td><%= @uf.select { |x, y| y == sample.client.state }[0][0] %></td>
+        <td><%= sample.data_recepcao.strftime('%d/%m/%y') %></td>
+        <td>
+          <% if @sigla_programas.include?(sample.programa) %>
+          <%= @sigla_programas[sample.programa].nil? ? sample.programa : @sigla_programas[sample.programa] %>
+          <% else %>
+          <%= sample.programa %>
+          <% end %>
+        </td>
         <td><%= sample.matriz.capitalize %></td>
         <td><%= sample.area_analitica %></td>
         <td><%= sample.objetivo_amostra.capitalize %></td>
@@ -39,9 +53,9 @@
           </td>
         <td><%= sample.data_liberacao.strftime('%d/%m/%Y') unless sample.data_liberacao.nil? %></td>
         <td><%= sample.status %></td>
-      </tr>
-    <% end %>
-    </tbody>
+        </tr>
+      <% end %>
+      </tbody>
   </table>
-
-  <%= paginate @samples %>
+</div>
+<%= paginate @samples %>
