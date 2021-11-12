@@ -3,7 +3,7 @@
     <div class="col-12 col-sm-4">
       <div class="form-login">
       <!-- Insert form here -->
-      <h2>Sign up</h2>
+      <h2>Registrar</h2>
       <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
         <%= f.error_notification %>
 
@@ -14,18 +14,20 @@
                       placeholder: "bob@gmail.com",
                       input_html: { autocomplete: "email" }%>
           <%= f.input :password,
+                      label: "Senha",
                       required: true,
-                      hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
+                      hint: ("Mínimo de #{@minimum_password_length} caracteres." if @minimum_password_length),
                       placeholder: "••••••",
                       input_html: { autocomplete: "new-password" } %>
           <%= f.input :password_confirmation,
+                      label: "Confirmação da Senha",
                       required: true,
                       placeholder: "••••••",
                       input_html: { autocomplete: "new-password" } %>
         </div>
 
         <div class="form-actions">
-          <%= f.button :submit, "Sign up", class: 'btn btn-primary' %>
+          <%= f.button :submit, "Registrar", class: 'br-button secondary mt-3 mt-sm-0 ml-sm-3' %>
         </div>
       <% end %>
       <%= render "devise/shared/links" %>
