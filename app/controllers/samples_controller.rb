@@ -77,6 +77,7 @@ before_action :find, only: :show
         date = params[:query][:end_time_liberacao].to_date
         @samples = @samples.where("data_liberacao <= ?", date)
       end
+    end
 
       # Será utilizado para verificar quais tabelas serão mostradas ao usuário parametros tabela samples
       search_fields = {
