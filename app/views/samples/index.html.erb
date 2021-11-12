@@ -6,6 +6,9 @@
 
 <p>Foram encontradas <strong><%= @quantidade %></strong> amostras.</p>
 
+<%= link_to "Exportar arquivo csv", samples_path(@samples, format: "csv"),
+    class: "btn btn-export" %>
+
 <%= paginate @samples %>
 
 <div id="table">
