@@ -23,7 +23,7 @@
           <% if current_user.admin? %>
             <%= link_to "Blazer", blazer_path, class: "dropdown-item" %>
           <% end %>
-            <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
+            <%= link_to "Sair", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
           </div>
         <% else %>
           <%= link_to "Entrar", new_user_session_path, class: "br-button sign-in small" %>
@@ -61,6 +61,8 @@
                     </div>
                   </div>
                   <nav class="menu-body">
+                    <%= link_to root_path, class: "menu-item" do %><span class="icon"><i class="fas fa-home" aria-hidden="true"></i></span><span class="content">Página Inicial</span><% end %>
+                    <span class="br-divider horizontal mx-half mx-sm-1">
                     <div class="menu-folder"><a class="menu-item text-decoration-none" href="javascript: void(0)"><span class="icon"><i class="fas fa-folder" aria-hidden="true"></i></span><span class="content">Indicadores</span></a>
                       <ul>
                         <li><%= link_to twelve_path, class: "menu-item" do %><span class="icon"><i class="fas fa-flask" aria-hidden="true"></i></span><span class="content">Amostras Processadas</span><% end %></li>
