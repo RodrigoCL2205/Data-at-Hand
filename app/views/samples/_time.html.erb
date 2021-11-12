@@ -7,10 +7,10 @@
 
           <div class="row justify-content-center">
             <div class="col-3">
-              <%= f.input :start_time, as: :string, label: "Data de Início", required: false, input_html: {class: "datepicker"} %>
+              <%= f.input :start_time, as: :string, label: "Data de Início", required: true, input_html: {class: "datepicker"} %>
             </div>
             <div class="col-3">
-              <%= f.input :end_time, as: :string, label: "Data Final", required: false, input_html: {class: "datepicker"} %>
+              <%= f.input :end_time, as: :string, label: "Data Final", required: true, input_html: {class: "datepicker"} %>
             </div>
 
           <div class="form-actions col-3 align-self-center">
