@@ -8,8 +8,10 @@
 
   <h4>Resultados para o período de <strong> <%= @start_time.strftime('%d/%b/%Y') %> </strong> a <strong> <%= @end_time.strftime('%d/%b/%Y') %>:</strong></h4>
 
- <div class="justify-content-center"> <%= link_to "Exportar arquivo csv", twelve_path(twelve: params[:twelve].to_enum.to_h, format: "csv"),
-    class: "br-button secondary mt-3 mt-sm-0 ml-sm-3" %> </div>
+<div class="d-flex justify-content-center pb-4">
+  <a href="javascript:history.back()" class="br-button secondary mt-3 mt-sm-0 ml-sm-3">Voltar</a>
+  <%= link_to "Exportar arquivo csv", twelve_path(twelve: params[:twelve].to_enum.to_h, format: "csv"), class:"br-button secondary mt-3 mt-sm-0 ml-sm-3" %>
+</div>
 
   <table class="table table-hover">
     <thead class="thead-dark">
