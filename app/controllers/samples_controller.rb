@@ -151,7 +151,7 @@ before_action :find, only: :show
     else
       @start_time = Date.new(Time.now.year,1,1)
       @end_time = Date.new(Time.now.year,12,31)
-      flash[:notice] = "Deverão ser preenchidas as datas de início e fim."
+      flash[:alert] = "Deverão ser preenchidas as datas de início e fim."
     end
   end
 
