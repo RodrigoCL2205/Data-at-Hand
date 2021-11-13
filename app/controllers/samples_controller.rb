@@ -143,13 +143,11 @@ before_action :find, only: :show
   # converte os dados de params em start_time e end_time
   def time_params
     if params[:twelve].present? && params[:twelve][:start_time].present? && params[:twelve][:end_time].present?
-
       #@start_time = Date.new("#{params["start_time(1i)"]}".to_i,"#{params["start_time(2i)"]}".to_i,"#{params["start_time(3i)"]}".to_i)
       #@end_time = Date.new("#{params["end_time(1i)"]}".to_i,"#{params["end_time(2i)"]}".to_i,"#{params["end_time(3i)"]}".to_i)
       #params.require(:twelve).permit(:start_time, :end_time)
       @start_time = params[:twelve][:start_time].to_date
       @end_time = params[:twelve][:end_time].to_date
-
     else
       @start_time = Date.new(Time.now.year,1,1)
       @end_time = Date.new(Time.now.year,12,31)
